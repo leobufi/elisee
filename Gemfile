@@ -30,6 +30,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 
 gem 'simple_form'
+gem 'rspotify', '>= 2.11.1'
+gem 'open-uri', '~> 0.2.0'
+
+gem 'dotenv-rails', groups: [:development, :test]
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

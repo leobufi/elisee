@@ -1,0 +1,18 @@
+.navigation{
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background: rgb(181, 73, 73);
+  transition: 0.5s;
+  z-index: 100;
+  border-radius: 4px;
+}
+
+.navigation .toggle{
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  display: flex;
+}
