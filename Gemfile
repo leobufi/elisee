@@ -30,6 +30,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 
 gem 'simple_form'
+gem 'font-awesome-sass', '~> 5.15.1'
+gem 'pg_search'
 gem 'rspotify', '>= 2.11.1'
 gem 'open-uri', '~> 0.2.0'
 
