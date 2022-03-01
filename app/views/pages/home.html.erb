@@ -1,4 +1,3 @@
-
 <div class="main-container">
   <h1>Welcome to Elisee, your App</h1>
   <p>Please select your favorite song down below</p>
@@ -14,4 +13,17 @@
         <% end %>
     <% end %>
   </div>
+
+<ul>
+  <% if @songs %>
+    <% @songs.each do |song| %>
+      <%= link_to song_path(song) do %>
+        <li><%= song.name %> <%= song.artist %> - <%= song.album %></li>
+      <% end %>
+    <% end %>
+    <% if @songs.empty? %>
+      <li>No results</li>
+    <% end %>
+  <% end %>
+</ul>
 </div>
