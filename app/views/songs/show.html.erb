@@ -1,1 +1,12 @@
-<h1><%= @song.name %> by <%= @song.artist %></h1>
+<h3 class= text-center><%= @song.name %> by <%= @song.artist %></h3>
+<h4 class= text-center>Album : <%= @song.album %></h4>
+<div data-controller="sketch"
+      data-sketch-duration-value="<%= @song.duration %>"
+      data-sketch-key-value="<%= @song.key %>"
+      data-sketch-mode-value="<%= @song.mode %>"
+      data-sketch-tempo-value="<%= @song.tempo %>"
+      data-sketch-time_signature-value="<%= @song.time_signature %>"
+      data-sketch-loudness-value="<%= @song.loudness %>">
+</div>
+
+<% console %>

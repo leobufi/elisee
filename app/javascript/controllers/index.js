@@ -1,3 +1,4 @@
+
 // Load all the controllers within this directory and all subdirectories.
 // Controller files must be named *_controller.js.
 
@@ -9,3 +10,4 @@ const application = Application.start()
 const context = require.context("controllers", true, /_controller\.js$/)
 application.register('autocomplete', Autocomplete)
 application.load(definitionsFromContext(context))
+

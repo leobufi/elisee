@@ -1,3 +1,4 @@
+
   <h1>Welcome to Elisee, your App</h1>
   <p>Please select your favorite song down below</p>
 <div class="main-container d-flex align-items-center justify-content-center">
@@ -7,9 +8,14 @@
           <input type="text" data-autocomplete-target="input" class="w-100"/>
           <input type="hidden" name="id" data-autocomplete-target="hidden"/>
           <%#= text_field_tag :query,
+<div class="main-container">
+  <div class="search-bar col-5">
+        <%= form_tag root_path, method: :get do %>
+          <%= text_field_tag :query,
+
           params[:query],
           class: "form-control",
-          placeholder: "Please select your song!"
+          placeholder: "Search for your favorite song !"
           %>
           <%= button_tag class: "btn btn-primary" do %>
             <i class="fas fa-search"></i>
