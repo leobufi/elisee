@@ -8,11 +8,9 @@
         <span class="ferm"><i data-action="click->navbar#toggle" class="fas fa-times"></i></span>
       </div>
       <ul class="menu">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><button class="btn1">Inscription</button></li>
-        <li><button class="btn2">Connexion</button></li>
+        <li><%= link_to "Log in", new_user_registration_path, class: "nav-link" %></li>
+        <li><%= link_to "Sign up", new_user_registration_path, class: "nav-link" %></li>
+        <li><%= link_to "My dashboard", new_user_registration_path, class: "nav-link" %></li>
       </ul>
     </nav>
   </header>
