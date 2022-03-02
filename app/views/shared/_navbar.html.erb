@@ -1,12 +1,11 @@
-<%# BENJAMIN - JE SOUHAITE METTRE EN PLACE LA NAVBAR %>
 <header>
-    <nav>
+    <nav data-controller="navbar" data-navbar-target="menu">
       <div class="logo">
-        <i class="fas fa-rocket"></i>
+        <span>LOGO ELISEE</span>
       </div>
       <div class="toggle">
-        <i class="fas fa-bars ouv"></i>
-        <i class="fas fa-times ferm"></i>
+        <span class="ouv"><i data-action="click->navbar#toggle" class="fas fa-bars"></i></span>
+        <span class="ferm"><i data-action="click->navbar#toggle" class="fas fa-times"></i></span>
       </div>
       <ul class="menu">
         <li><a href="#">Home</a></li>
@@ -17,4 +16,3 @@
       </ul>
     </nav>
   </header>
-  <%# BENJAMIN - JE SOUHAITE METTRE EN PLACE LA NAVBAR %>

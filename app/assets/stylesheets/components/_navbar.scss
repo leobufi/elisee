@@ -14,7 +14,8 @@ header {
   height: 8vh;
   top: 0;
   left: 0;
-  background: black;
+  background: transparent;
+  padding: 0 20px;
 }
 
 nav{
@@ -30,11 +31,11 @@ nav{
   position: relative;
   z-index: 20;
   font-size: 2rem;
-  color: white;
+  color: black;
 }
 
 .toggle {
-  color: white;
+  color: black;
   display: block;
   font-size: 2rem;
   cursor: pointer;
@@ -43,7 +44,7 @@ nav{
 }
 
 .menu{
-  background: black;
+  background: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   left: 0;
