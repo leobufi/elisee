@@ -44,38 +44,28 @@ nav{
 }
 
 .menu{
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(47, 43, 43, 0.6);
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
+  right: 0;
+  width: 15%;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  transform: translateX(-100%);
+  transform: translateX(100%);
   transition: transform 1s;
+}
+
+.menu li {
+  list-style-type: none;
 }
 
 .menu li a {
   font-size: 1.2rem;
   color: #fff;
   text-decoration: none;
-}
-
-button{
-  border: 0;
-  background: pink;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-}
-
-.btn2{
-  background: transparent;
-  border: 2px solid pink;
-  color: #fff;
 }
 
 .ouv {

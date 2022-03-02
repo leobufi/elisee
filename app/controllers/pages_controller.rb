@@ -10,7 +10,7 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    # @songs = current_user.songs
+    @songs = current_user.songs
     # @bookings = current_user.bookings.reverse
     # @requested_bookings = current_user.requested_bookings.reverse
     # @mountain = Mountain.new
