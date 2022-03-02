@@ -15,14 +15,14 @@
 
 <ul>
   <% if @songs %>
-    <% @songs.each do |song| %>
-      <%= link_to song_path(song) do %>
+        <% @songs.each do |song| %>
+        <%= link_to song_path(song) do %>
         <li><%= song.name %> <%= song.artist %> - <%= song.album %></li>
-      <% end %>
-    <% end %>
-    <% if @songs.empty? %>
-      <li>No results</li>
-    <% end %>
+          <% end %>
+        <% end %>
+        <% if @songs.empty? %>
+          <li>No results</li>
+        <% end %>
   <% end %>
 </ul>
 </div>
