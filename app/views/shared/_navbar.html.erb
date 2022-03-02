@@ -1,5 +1,18 @@
-<div class="navigation">
-  <div class="toggle">
-  test test test
-  </div>
-</div>
+<header>
+    <nav data-controller="navbar" data-navbar-target="menu">
+      <div class="logo">
+        <span>LOGO ELISEE</span>
+      </div>
+      <div class="toggle">
+        <span class="ouv"><i data-action="click->navbar#toggle" class="fas fa-bars"></i></span>
+        <span class="ferm"><i data-action="click->navbar#toggle" class="fas fa-times"></i></span>
+      </div>
+      <ul class="menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><button class="btn1">Inscription</button></li>
+        <li><button class="btn2">Connexion</button></li>
+      </ul>
+    </nav>
+  </header>

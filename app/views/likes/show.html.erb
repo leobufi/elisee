@@ -1,0 +1,2 @@
+<%= button_to "Like", song_path(@song), method: :post %>
+<%= pluralize @song.likes.size, "like" %>

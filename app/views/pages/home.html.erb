@@ -1,18 +1,17 @@
 <div class="main-container">
-  <h1>Welcome to Elisee, your App</h1>
-  <p>Please select your favorite song down below</p>
   <div class="search-bar col-5">
         <%= form_tag root_path, method: :get do %>
           <%= text_field_tag :query,
           params[:query],
           class: "form-control",
-          placeholder: "Please select your song!"
+          placeholder: "Search for your favorite song !"
           %>
           <%= button_tag class: "btn btn-primary" do %>
             <i class="fas fa-search"></i>
         <% end %>
     <% end %>
   </div>
+
 
 <ul>
   <% if @songs %>

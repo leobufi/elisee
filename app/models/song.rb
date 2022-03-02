@@ -1,5 +1,5 @@
 class Song < ApplicationRecord
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :users, through: :likes
 
   validates :name, presence: true
