@@ -1,9 +1,12 @@
-<div class="main-container">
   <h1>Welcome to Elisee, your App</h1>
   <p>Please select your favorite song down below</p>
-  <div class="search-bar col-5">
-        <%= form_tag root_path, method: :get do %>
-          <%= text_field_tag :query,
+<div class="main-container d-flex align-items-center justify-content-center">
+  <div class="search-bar col-6 ">
+    <div data-controller="autocomplete" data-autocomplete-url-value="/songs_autocomplete">
+        <%= form_tag '/get_song_from_search', :style => 'd-flex', method: :post do %>
+          <input type="text" data-autocomplete-target="input" class="w-100"/>
+          <input type="hidden" name="id" data-autocomplete-target="hidden"/>
+          <%#= text_field_tag :query,
           params[:query],
           class: "form-control",
           placeholder: "Please select your song!"
@@ -12,18 +15,7 @@
             <i class="fas fa-search"></i>
         <% end %>
     <% end %>
+      <ul class="list-group" data-autocomplete-target="results"></ul>
+    </div>
   </div>
-
-<ul>
-  <% if @songs %>
-    <% @songs.each do |song| %>
-      <%= link_to song_path(song) do %>
-        <li><%= song.name %> <%= song.artist %> - <%= song.album %></li>
-      <% end %>
-    <% end %>
-    <% if @songs.empty? %>
-      <li>No results</li>
-    <% end %>
-  <% end %>
-</ul>
 </div>

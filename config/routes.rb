@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   resources :songs, except: [:edit, :update] do
     resources :likes
   end
+  get "/songs_autocomplete", to: 'songs#autocomplete'
+  post "/get_song_from_search", to: 'songs#show'
 end
