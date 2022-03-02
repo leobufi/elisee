@@ -27,6 +27,11 @@ class SongsController < ApplicationController
     @song.destroy
   end
 
+  def autocomplete
+    @songs = Song.where("artist ILIKE '%#{params[:q]}%' OR name ILIKE '%#{params[:q]}%' OR album ILIKE '%#{params[:q]}%'")
+    render partial: 'songs/autocomplete', locals: { search_results: @songs }, layout: false, formats: %i[html]
+  end
+
   private
 
   def song_params

@@ -1,0 +1,3 @@
+<% search_results.each_with_index do |result, i| %>
+  <li class="list-group-item" role="option" data-autocomplete-value="<%= result.id %>"><%= result.name %></li>
+<% end %>
