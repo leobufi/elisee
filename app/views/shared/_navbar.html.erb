@@ -1,7 +1,9 @@
 <header>
     <nav data-controller="navbar" data-navbar-target="menu">
       <div class="logo">
-        <span>ELISEE</span>
+       <%=link_to root_path do %>
+       <h1>élisée </h1>
+       <% end %>
       </div>
       <div class="toggle">
         <span class="ouv"><i data-action="click->navbar#toggle" class="fas fa-bars"></i></span>

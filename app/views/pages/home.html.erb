@@ -2,10 +2,10 @@
   <div class="search-bar col-6 ">
     <div data-controller="autocomplete" data-autocomplete-url-value="/songs_autocomplete">
         <%= form_tag '/song', :style => 'd-flex', method: :get do %>
-          <input type="text" data-autocomplete-target="input" class="w-100"/>
+          <input type="text" id="search-bar" data-autocomplete-target="input" class="w-100"/>
           <input type="hidden" name="id" data-autocomplete-target="hidden"/>
-          <%= button_tag class: "btn btn-primary", name: nil do %>
-            <i class="fas fa-search"></i>
+          <%=button_tag class: "btn btn-info", name: nil do %>
+            <i class="fa-solid fa-play"></i>
         <% end %>
     <% end %>
       <ul class="list-group" data-autocomplete-target="results"></ul>
