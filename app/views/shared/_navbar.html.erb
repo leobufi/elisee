@@ -1,16 +1,21 @@
 <header>
     <nav data-controller="navbar" data-navbar-target="menu">
       <div class="logo">
-        <span>LOGO ELISEE</span>
+        <span>ELISEE</span>
       </div>
       <div class="toggle">
         <span class="ouv"><i data-action="click->navbar#toggle" class="fas fa-bars"></i></span>
         <span class="ferm"><i data-action="click->navbar#toggle" class="fas fa-times"></i></span>
       </div>
       <ul class="menu">
-        <li><%= link_to "Log in", new_user_registration_path, class: "nav-link" %></li>
-        <li><%= link_to "Sign up", new_user_registration_path, class: "nav-link" %></li>
-        <li><%= link_to "My dashboard", new_user_registration_path, class: "nav-link" %></li>
+        <% if user_signed_in? %>
+          <li><%= "Hello #{current_user.email}" %></li>
+          <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to "My dashboard", dashboard_path, class: "nav-link" %></li>
+        <% else %>
+          <li><%= link_to "Log in", new_user_session_path %></li>
+          <li><%= link_to "Sign up", new_user_registration_path, class: "nav-link" %></li>
+        <% end %>
       </ul>
     </nav>
   </header>
