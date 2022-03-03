@@ -1,7 +1,12 @@
 class SongsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:autocomplete, :show]
 
+  def index
+    @songs = Song.all
+  end
+
   def show
+    @like = Like.new
     @song = Song.find(params[:id])
   end
 
@@ -19,13 +24,15 @@ class SongsController < ApplicationController
     end
   end
 
-  def index
-    @songs = Song.all
-  end
-
   def destroy
     @song = Song.find(params[:id])
     @song.destroy
+  end
+
+  def like
+    @song = Song.find(params[:id])
+    Like.create(user_id: current_user.id, song_id: @song.id)
+    redirect_to song_path(@song)
   end
 
   def autocomplete
