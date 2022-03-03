@@ -1,1 +1,26 @@
 <h1>You have landed on the dashboard !</h1>
+
+<div class="card-all">
+
+  <% @songs.each do |song| %>
+    <div class="dash-item">
+      <div class="item-image">
+          <%= image_tag('kong.jpg') %>
+        <% end %>
+        <div class="item-text">
+          <div>
+              <h2><%= song.name %></h2>
+          </div>
+          <div>
+            <button type="button" class="btn btn-success">
+            <%= link_to "Show", song_path(song) %></button>
+            <button type="button" class="btn btn-success">
+            <%= link_to "Edit", edit_song_path(song) %></button>
+            <button type="button" class="btn btn-info">
+            <%= link_to "Delete", song_path(song), method: :delete %></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

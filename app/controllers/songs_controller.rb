@@ -1,4 +1,5 @@
 class SongsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:autocomplete, :show]
 
   def show
     @song = Song.find(params[:id])
