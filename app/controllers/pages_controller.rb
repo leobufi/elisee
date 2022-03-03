@@ -13,5 +13,7 @@ class PagesController < ApplicationController
   def dashboard
     @song = Song.new
     @songs = current_user.songs
+    @like = Like.new
+    @likes = current_user.likes
   end
 end

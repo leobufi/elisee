@@ -27,3 +27,30 @@ body{
   width: 100vw;
   overflow: hidden;
 }
+
+// DEVISE FORMS ↓ (to move ??)
+.devise-login{
+  width: 50%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.devise-login .letsgo{
+  display: flex;
+  justify-content: center;
+}
+
+.devise-signup{
+  width: 50%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+//DEVISE FORMS ↑
