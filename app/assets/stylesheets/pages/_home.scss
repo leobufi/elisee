@@ -1,16 +1,20 @@
 .main-container {
   height: 100vh;
   width: 100vw;
-  background-image: url('ferdinand-stohr-NFs6dRTBgaM-unsplash.jpg');
-  background-size: cover;
-  opacity: 0.5;
-
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  // background-image: url('ferdinand-stohr-NFs6dRTBgaM-unsplash.jpg');
+  // background-size: cover;
+  // opacity: 0.5;
 }
 
 #search-bar {
   width: 90% !important;
-  border-radius: 0.5px;
+  // border-radius: 0.5px;
   position:relative;
+  background: transparent;
+  border: none;
+  align-items: center;
+  color: black;
 }
 
 .btn {

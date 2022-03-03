@@ -1,4 +1,3 @@
-
 // Graphical variables
 @import "config/fonts";
 // @import "config/colors";
@@ -24,11 +23,16 @@ html{
 }
 
 body{
+  background-color: black;
   width: 100vw;
   overflow: hidden;
+  font-family: 'VG5000';
+  font-size: 1.5em;
+  color: white;
 }
 
 // DEVISE FORMS ↓ (to move ??)
+
 .devise-login{
   width: 50%;
   margin: 20px auto;
@@ -54,19 +58,19 @@ body{
 //DEVISE FORMS ↑
 
 h1 {
-  font-family: 'VG5000';
   font-size: 55px;
-}
-
-p h2 h3 {
-  font-family: 'Terminal';
 }
 
 a {
   text-decoration: none;
-  color: black;
+  color: white;
 }
 
 a:hover {
-  color: black;
+  color: #E7AFCC;
 }
+
+ol, ul {
+  padding: 1em;
+}
+
