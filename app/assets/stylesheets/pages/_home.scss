@@ -1,8 +1,18 @@
 .main-container {
   height: 100vh;
   width: 100vw;
+  background-image: url('ferdinand-stohr-NFs6dRTBgaM-unsplash.jpg');
+  background-size: cover;
+  opacity: 0.5;
+
 }
 
-.search-bar {
-  width: 90%;
+#search-bar {
+  width: 90% !important;
+  border-radius: 0.5px;
+  position:relative;
+}
+
+.btn {
+  position:absolute;
 }

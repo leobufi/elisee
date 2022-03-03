@@ -1,6 +1,6 @@
 
 // Graphical variables
-// @import "config/fonts";
+@import "config/fonts";
 // @import "config/colors";
 // @import "config/bootstrap_variables";
 
@@ -26,4 +26,22 @@ html{
 body{
   width: 100vw;
   overflow: hidden;
+}
+
+h1 {
+  font-family: 'VG5000';
+  font-size: 55px;
+}
+
+p h2 h3 {
+  font-family: 'Terminal';
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: black;
 }
