@@ -14,15 +14,35 @@ export default class extends Controller {
     console.log("Hello from P5 controller");
     console.log(this.keyValue);
 
+    this._setupAll()
+
+  }
+
+  disconnect() {
+    console.log('hahahha')
+    window.setup = () => {}
+    window.draw = () => {}
+  }
+
+  _setupAll() {
+    this._setupWindow()
+    this._drawCanvas()
+  }
+
+  _setupWindow() {
     window.setup = () => {
-      createCanvas (windowWidth, windowHeight, WEBGL);
+      console.log('lol setup inside')
+      createCanvas(windowWidth, windowHeight, WEBGL);
       colorMode(HSL);
       frameRate(90);
       noiseSeed(99);
     }
+  }
 
+  _drawCanvas() {
     window.draw = () => {
       background(0);
+      console.log('drawing...')
       stroke(359, 100, 100);
 
       const keyHue = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
