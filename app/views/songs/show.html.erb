@@ -1,12 +1,15 @@
-<h3 class= text-center><%= @song.name %> by <%= @song.artist %></h3>
-<h4 class= text-center>Album : <%= @song.album %></h4>
-<div data-controller="sketch"
-      data-sketch-duration-value="<%= @song.duration %>"
-      data-sketch-key-value="<%= @song.key %>"
-      data-sketch-mode-value="<%= @song.mode %>"
-      data-sketch-tempo-value="<%= @song.tempo %>"
-      data-sketch-time_signature-value="<%= @song.time_signature %>"
-      data-sketch-loudness-value="<%= @song.loudness %>">
+<div class='song'>
+  <div class='song_id p-2'>
+    <h3 class= text-center><%= @song.name %></h3>
+    <h4 class= text-center>Artist: <%= @song.artist %></h4>
+    <h4 class= text-center>Album: <%= @song.album %></h4>
+  </div>
+  <div class='p5_canva' data-controller="sketch"
+        data-sketch-duration-value="<%= @song.duration %>"
+        data-sketch-key-value="<%= @song.key %>"
+        data-sketch-mode-value="<%= @song.mode %>"
+        data-sketch-tempo-value="<%= @song.tempo %>"
+        data-sketch-time_signature-value="<%= @song.time_signature %>"
+        data-sketch-loudness-value="<%= @song.loudness %>">
+  </div>
 </div>
-
-<#% console %>
