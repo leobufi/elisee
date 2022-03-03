@@ -1,18 +1,10 @@
-
-
 <div class="main-container d-flex align-items-center justify-content-center">
   <div class="search-bar col-6 ">
     <div data-controller="autocomplete" data-autocomplete-url-value="/songs_autocomplete">
-        <%= form_tag '/get_song_from_search', :style => 'd-flex', method: :post do %>
+        <%= form_tag '/song', :style => 'd-flex', method: :get do %>
           <input type="text" data-autocomplete-target="input" class="w-100"/>
           <input type="hidden" name="id" data-autocomplete-target="hidden"/>
-         \
-
-          params[:query],
-          class: "form-control",
-          placeholder: "Search for your favorite song !"
-          %>
-          <%= button_tag class: "btn btn-primary" do %>
+          <%= button_tag class: "btn btn-primary", name: nil do %>
             <i class="fas fa-search"></i>
         <% end %>
     <% end %>

@@ -6,5 +6,5 @@ Rails.application.routes.draw do
     resources :likes, only: [:new, :create, :destroy]
   end
   get "/songs_autocomplete", to: 'songs#autocomplete'
-  post "/get_song_from_search", to: 'songs#show'
+  get "/song", to: 'songs#show'
 end
