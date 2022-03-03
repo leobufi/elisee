@@ -36,6 +36,7 @@ nav{
 }
 
 .menu{
+  z-index: 20;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

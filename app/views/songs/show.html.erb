@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <meta name="turbolinks-visit-control" content="reload">
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js" async defer></script>
+<% end %>
 <h3 class= text-center><%= @song.name %> by <%= @song.artist %></h3>
 <h4 class= text-center>Album : <%= @song.album %></h4>
 <div data-controller="sketch"
@@ -9,4 +13,6 @@
       data-sketch-loudness-value="<%= @song.loudness %>">
 </div>
 
-<#% console %>
+<%= simple_form_for [@song, @like] do |f| %>
+  <% f.submit "Like" %>
+<% end %>
