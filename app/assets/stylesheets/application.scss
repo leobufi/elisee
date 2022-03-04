@@ -73,3 +73,8 @@ a:hover {
 ol, ul {
   padding: 1em;
 }
+
+li.active {
+  background-color: #E7AFCC !important;
+  border: none;
+}

@@ -8,15 +8,32 @@
 }
 
 #search-bar {
-  appearance: none;
+  -moz-appearance: none;
   width: 100% !important;
   position: relative;
   color: black;
   background: transparent;
   border: none;
   text-align: center;
+
+  &:focus-visible {
+    border: none;
+    outline: 0;
+  }
+}
+
+.papa-search {
+  position: relative;
 }
 
 .btn {
   position:absolute;
+}
+
+.list-group {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 40vh;
+  overflow: hidden;
 }
