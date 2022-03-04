@@ -6,6 +6,7 @@ header {
   left: 0;
   background: transparent;
   padding: 0 20px;
+  z-index: 22;
 }
 
 nav{
@@ -39,8 +40,8 @@ nav{
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: flex-start;
-  background-color: rgba(0, 0, 0, 0.6);
+  align-items: flex-end;
+  background-color: rgba(0, 0, 0, 0);
   position: absolute;
   top: 0;
   right: 0;
@@ -52,11 +53,6 @@ nav{
 
 .menu li {
   list-style-type: none;
-}
-
-.menu li a {
-  color: #fff;
-  text-decoration: none;
 }
 
 .ouv {
