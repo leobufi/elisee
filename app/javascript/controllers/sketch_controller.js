@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { csrfToken } from "@rails/ujs";
 
 export default class extends Controller {
   static values = {
@@ -7,7 +8,8 @@ export default class extends Controller {
     mode: Number,
     tempo: Number,
     time_signature: Number,
-    loudness: Number
+    loudness: Number,
+    id: Number
   }
 
   connect() {
@@ -36,7 +38,9 @@ export default class extends Controller {
   }
 
   _drawCanvas() {
+    let retrievedUrl = false
     window.draw = () => {
+
       background(0);
       stroke(359, 100, 100);
 
@@ -55,7 +59,51 @@ export default class extends Controller {
       applyMatrix(1, 1, 1, 0, 0, 0);
       sphere(90);
       cone(this.durationValue/2, this.loudnessValue*2, this.time_signatureValue, this.keyValue);
-      // console.log('drawing...', this.canvas.elt.toDataURL())
+
+      // console.log(this.canvas.elt.toDataURL())
+      if (!retrievedUrl) {
+        this._saveCanvasImageUrl()
+        retrievedUrl = true
+      }
+      // this.canvas.elt.toBlob((blob) => {
+      //   // var newImg = document.createElement('img'),
+      //   const url = URL.createObjectURL(blob);
+
+      //   // newImg.onload = function() {
+      //     // no longer need to read the blob so it's revoked
+      //     // URL.revokeObjectURL(url);
+      //     // };
+
+      //     console.log(blob)
+      //     // newImg.src = url;
+      //     // document.body.appendChild(newImg);
+      //   });
+      // }
     }
+
+  }
+
+  _saveCanvasImageUrl() {
+    const url = this.canvas.elt.toDataURL()
+    const data = new FormData()
+
+    data.append('song[image_url]', url)
+    data.append('id', this.idValue)
+
+    this._fetchWithToken(`/attach_image_url`, {
+      method: 'POST',
+      headers: { 'Accept-Content': 'application/json'},
+      body: data
+    })
+  }
+
+
+  _fetchWithToken(url, options) {
+    options.headers = {
+      "X-CSRF-Token": csrfToken(),
+      ...options.headers
+    };
+
+    return fetch(url, options);
   }
 }
