@@ -1,6 +1,6 @@
 <div class="main-container d-flex align-items-center justify-content-center">
   <div class="search-bar col-6 ">
-    <div data-controller="autocomplete" data-autocomplete-url-value="/songs_autocomplete">
+    <div class='papa-search' data-controller="autocomplete" data-autocomplete-url-value="/songs_autocomplete">
         <%= form_tag '/song', :style => 'd-flex', method: :get do %>
           <input type="text" id="search-bar" data-autocomplete-target="input" placeholder="Type your favorite song..." class="w-100"/>
           <input type="hidden" name="id" data-autocomplete-target="hidden"/>
