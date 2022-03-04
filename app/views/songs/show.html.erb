@@ -14,6 +14,9 @@
         <% f.submit "Like" %>
       <% end %>
     </div>
+    <div class="player">
+      <iframe src="https://open.spotify.com/embed/track/<%=@song.spotify_id%>" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    </div>
   </div>
   <div class='p5-canva' data-controller="sketch"
         data-sketch-duration-value="<%= @song.duration %>"
