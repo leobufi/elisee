@@ -13,13 +13,14 @@ class LikesController < ApplicationController
       @like = Like.new
       @like.song = @song
       @like.user = current_user
-      @like.update(status: true)
+      @like.save
       flash[:notice] = 'Saved to your dashboard'
     end
+    redirect_to song_path(@song)
   end
 
   def destroy
-    if !(already_liked?)
+    if !already_liked?
       flash[:notice] = "Can't unlike this"
     else
       @like.destroy
@@ -39,6 +40,5 @@ class LikesController < ApplicationController
 
   def already_liked?
     Like.where(user_id: current_user.id, song_id: params[:song_id]).exists?
-    # WOULD --- Like.self.new_record? ---- WORK TOO ?
   end
 end
