@@ -19,6 +19,8 @@
 </div>
 
 <%= simple_form_for [@song, @like] do |f| %>
-  <% f.submit "Like" %>
+  <%= button_tag type: 'submit', class: "button postfix" do %>
+    <i class="like-button fas fa-heart"></i>
+    <% link_to dashboard_path %>
+  <% end %>
 <% end %>
-
