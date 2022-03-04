@@ -3,12 +3,19 @@
   <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js" async defer></script>
 <% end %>
 <div class='song'>
-  <div class='song_id p-2'>
-    <h3 class= text-center><%= @song.name %></h3>
-    <h4 class= text-center>Artist: <%= @song.artist %></h4>
-    <h4 class= text-center>Album: <%= @song.album %></h4>
+  <div class='song-menu d-flex justify-content-center align-items-center p-2'>
+    <div class='song_text_info'>
+      <h3 class= text-center><%= @song.name %></h3>
+      <h4 class= text-center>Artist: <%= @song.artist %></h4>
+      <h4 class= text-center>Album: <%= @song.album %></h4>
+    </div>
+    <div class="like-btn px-4">
+      <%= simple_form_for [@song, @like] do |f| %>
+        <% f.submit "Like" %>
+      <% end %>
+    </div>
   </div>
-  <div class='p5_canva' data-controller="sketch"
+  <div class='p5-canva' data-controller="sketch"
         data-sketch-duration-value="<%= @song.duration %>"
         data-sketch-key-value="<%= @song.key %>"
         data-sketch-mode-value="<%= @song.mode %>"
@@ -17,8 +24,3 @@
         data-sketch-loudness-value="<%= @song.loudness %>">
   </div>
 </div>
-
-<%= simple_form_for [@song, @like] do |f| %>
-  <% f.submit "Like" %>
-<% end %>
-
