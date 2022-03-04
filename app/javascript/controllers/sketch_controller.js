@@ -6,7 +6,7 @@ export default class extends Controller {
     key: Number,
     mode: Number,
     tempo: Number,
-    time_signature: Number,
+    timeSignature: Number,
     loudness: Number
   }
 
@@ -38,7 +38,9 @@ export default class extends Controller {
   _drawCanvas() {
     window.draw = () => {
       background(0);
-      stroke(359, 100, 100);
+      //directionalLight(0, 0, 100, 0, 0, -15);
+      stroke(359, 0, 0);
+      orbitControl();
 
       const keyHue = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
       const modeLightness = {
@@ -46,15 +48,16 @@ export default class extends Controller {
         1: 75
       };
 
+      //ambientMaterial(keyHue[this.keyValue], 100-((this.loudnessValue/-60)*100), modeLightness[this.modeValue]);
       fill(color(keyHue[this.keyValue], 100-((this.loudnessValue/-60)*100), modeLightness[this.modeValue]));
 
-      rotateX(frameCount * 0.02);
-      rotateY(frameCount * 0.02);
-      rotateZ(millis(this.time_signatureValue) / 1000);
+      rotateX(frameCount * this.durationValue/10000);
+      rotateY(frameCount * this.tempoValue/10000);
+      rotateZ(frameCount * this.timeSignatureValue/10000);
 
-      applyMatrix(1, 1, 1, 0, 0, 0);
-      sphere(90);
-      cone(this.durationValue/2, this.loudnessValue*2, this.time_signatureValue, this.keyValue);
+      // applyMatrix(1, 1, 1, 0, 0, 0);
+      sphere(this.tempoValue)
+      torus(this.durationValue/1.5, 100-((this.loudnessValue/-60)*100), this.timeSignatureValue, this.timeSignatureValue);
       // console.log('drawing...', this.canvas.elt.toDataURL())
     }
   }

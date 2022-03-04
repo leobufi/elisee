@@ -9,13 +9,16 @@
       <h4 class= text-center>Artist: <%= @song.artist %></h4>
       <h4 class= text-center>Album: <%= @song.album %></h4>
     </div>
-    <div class="like-btn px-4">
-      <%= simple_form_for [@song, @like] do |f| %>
-        <% f.submit "Like" %>
-      <% end %>
-    </div>
-    <div class="player">
+    <div class="player px-4">
       <iframe src="https://open.spotify.com/embed/track/<%=@song.spotify_id%>" width="80" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    </div>
+    <div class="show-btn">
+      <%= simple_form_for [@song, @like] do |f| %>
+        <% f.submit "Add to your collection" %>
+      <% end %>
+      <button class="" type="button">
+          Export
+      </button>
     </div>
   </div>
   <div class='p5-canva' data-controller="sketch"
@@ -23,7 +26,7 @@
         data-sketch-key-value="<%= @song.key %>"
         data-sketch-mode-value="<%= @song.mode %>"
         data-sketch-tempo-value="<%= @song.tempo %>"
-        data-sketch-time_signature-value="<%= @song.time_signature %>"
+        data-sketch-time-signature-value="<%= @song.time_signature %>"
         data-sketch-loudness-value="<%= @song.loudness %>">
   </div>
 </div>
