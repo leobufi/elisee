@@ -8,13 +8,13 @@
 }
 
 #search-bar {
-  width: 90% !important;
-  // border-radius: 0.5px;
-  position:relative;
+  appearance: none;
+  width: 100% !important;
+  position: relative;
+  color: black;
   background: transparent;
   border: none;
-  align-items: center;
-  color: black;
+  text-align: center;
 }
 
 .btn {

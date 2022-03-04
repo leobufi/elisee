@@ -11,15 +11,12 @@ export default class extends Controller {
   }
 
   connect() {
-    console.log("Hello from P5 controller");
-    console.log(this.keyValue);
-
+    console.log("connected to P5 controller");
     this._setupAll()
-
   }
 
   disconnect() {
-    console.log('hahahha')
+    console.log('disconnected')
     window.setup = () => {}
     window.draw = () => {}
   }
@@ -31,18 +28,16 @@ export default class extends Controller {
 
   _setupWindow() {
     window.setup = () => {
-      console.log('lol setup inside')
-      createCanvas(windowWidth, windowHeight, WEBGL);
+      console.log('setup inside')
+      this.canvas = createCanvas(windowWidth, windowHeight, WEBGL);
       colorMode(HSL);
       frameRate(90);
-      noiseSeed(99);
     }
   }
 
   _drawCanvas() {
     window.draw = () => {
       background(0);
-      console.log('drawing...')
       stroke(359, 100, 100);
 
       const keyHue = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
@@ -59,7 +54,8 @@ export default class extends Controller {
 
       applyMatrix(1, 1, 1, 0, 0, 0);
       sphere(90);
-      torus(this.durationValue/2, this.loudnessValue*2, this.time_signatureValue, this.keyValue);
+      cone(this.durationValue/2, this.loudnessValue*2, this.time_signatureValue, this.keyValue);
+      // console.log('drawing...', this.canvas.elt.toDataURL())
     }
   }
 }
