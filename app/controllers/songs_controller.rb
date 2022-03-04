@@ -1,13 +1,18 @@
 class SongsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:autocomplete, :show]
+  helper_method :already_liked?
 
   def index
     @songs = Song.all
   end
 
   def show
-    @like = Like.new
     @song = Song.find(params[:id])
+    if already_liked?
+      @like = Like.where(user_id: current_user.id, song_id: params[:id]).first
+    else
+      @like = Like.new
+    end
   end
 
   def new
@@ -53,5 +58,9 @@ class SongsController < ApplicationController
                                 :spotify_id,
                                 :time_signature,
                                 :loudness)
+  end
+
+  def already_liked?
+    Like.where(user_id: current_user.id, song_id: params[:id]).exists?
   end
 end

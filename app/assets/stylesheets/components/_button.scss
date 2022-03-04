@@ -1,4 +1,9 @@
 .like-button{
-  background: black;
+  border: none;
+  background: transparent;
+  color: white;
+}
+
+.like-button.active{
   color: red;
 }

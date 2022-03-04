@@ -10,9 +10,19 @@
       <h4 class= text-center>Album: <%= @song.album %></h4>
     </div>
     <div class="like-btn px-4">
-      <%= simple_form_for [@song, @like] do |f| %>
-        <% f.submit "Like" %>
+    <% if already_liked? %>
+      <%= simple_form_for [@song, @like], method: :delete do |f| %>
+        <%= button_tag(type: "submit",class: "like-button active") do %>
+          <i class="fas fa-heart"></i>
+        <% end %>
       <% end %>
+    <% else %>
+      <%= simple_form_for [@song, @like] do |f| %>
+        <%= button_tag(type: "submit",class: "like-button") do %>
+          <i class="fas fa-heart"></i>
+        <% end %>
+      <% end %>
+    <% end %>
     </div>
   </div>
   <div class='p5-canva' data-controller="sketch"
@@ -24,3 +34,5 @@
         data-sketch-loudness-value="<%= @song.loudness %>">
   </div>
 </div>
+
+<% console %>
