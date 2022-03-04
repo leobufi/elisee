@@ -5,10 +5,8 @@ require 'json'
 Song.destroy_all
 puts "cleaning previous db..."
 
-
 RSpotify.authenticate(ENV["CLIENT_ID"], ENV["CLIENT_SEC"])
 playlist = RSpotify::Playlist.find_by_id('7DkUTJSiWwbyeTSKsD1fYo')
-
 
 playlist.tracks.each do |track|
   sleep 1
