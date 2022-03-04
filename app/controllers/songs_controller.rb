@@ -29,6 +29,12 @@ class SongsController < ApplicationController
     end
   end
 
+  def attach_image_url
+    @song = Song.find(params[:id])
+    @song.update_column(:image_url, params[:song][:image_url])
+    head :ok
+  end
+
   def destroy
     @song = Song.find(params[:id])
     @song.destroy
