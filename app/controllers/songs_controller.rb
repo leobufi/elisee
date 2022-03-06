@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:autocomplete, :show]
+  skip_before_action :authenticate_user!, only: [:autocomplete]
   helper_method :already_liked?
 
   def index
@@ -63,7 +63,12 @@ class SongsController < ApplicationController
                                 :tempo,
                                 :spotify_id,
                                 :time_signature,
-                                :loudness)
+                                :loudness,
+                                :acousticness,
+                                :danceability,
+                                :energy,
+                                :instrumentalness,
+                                :valence)
   end
 
   def already_liked?

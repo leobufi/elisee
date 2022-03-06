@@ -9,12 +9,23 @@ export default class extends Controller {
     tempo: Number,
     timeSignature: Number,
     loudness: Number,
-    id: Number
+    id: Number,
+    acousticness: Number,
+    danceability: Number,
+    energy: Number,
+    instrumentalness: Number,
+    valence: Number
   }
 
   connect() {
     console.log("connected to P5 controller");
     this._setupAll()
+    console.log(this.acousticnessValue);
+    console.log(this.danceabilityValue);
+    console.log(this.energyValue);
+    console.log(this.instrumentalnessValue);
+    console.log(this.valenceValue);
+
   }
 
   disconnect() {

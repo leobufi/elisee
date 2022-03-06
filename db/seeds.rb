@@ -12,7 +12,7 @@ playlist.tracks.each do |track|
   sleep 1
   Song.create!(
     name: track.name,
-    artist: track.album.artists.map {|art| art.name}.join(', '),
+    artist: track.album.artists.map {|a| a.name}.join(', '),
     album: track.album.name,
     duration: track.audio_features.duration_ms/1000,
     key: track.audio_features.key,
@@ -20,7 +20,12 @@ playlist.tracks.each do |track|
     tempo: track.audio_features.tempo,
     spotify_id: track.id,
     time_signature: track.audio_features.time_signature,
-    loudness: track.audio_features.loudness
+    loudness: track.audio_features.loudness,
+    acousticness: track.audio_features.acousticness,
+    danceability: track.audio_features.danceability,
+    energy: track.audio_features.energy,
+    instrumentalness: track.audio_features.instrumentalness,
+    valence: track.audio_features.valence,
   )
   puts "1 song created"
 end
