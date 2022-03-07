@@ -38,23 +38,64 @@ export default class extends Controller {
   _drawCanvas() {
     window.draw = () => {
       background(0);
-      stroke(359, 100, 100);
+      colorMode(RGB, 255);
 
-      const keyHue = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
-      const modeLightness = {
-        0: 25,
-        1: 75
-      };
 
-      fill(color(keyHue[this.keyValue], 100-((this.loudnessValue/-60)*100), modeLightness[this.modeValue]));
 
-      rotateX(frameCount * 0.02);
-      rotateY(frameCount * 0.02);
-      rotateZ(millis(this.time_signatureValue) / 1000);
+      // VALUES LOGS
+      // console.log(`key is ${this.keyValue}`);
+      // console.log(`key to rgb value equals ${f}`);
+      console.log(`mode is ${this.modeValue}`);
+      // console.log(`time_sig is ${this.time_signatureValue}`);
+      // console.log(`duration is ${this.durationValue}`);
 
-      applyMatrix(1, 1, 1, 0, 0, 0);
-      sphere(90);
-      cone(this.durationValue/2, this.loudnessValue*2, this.time_signatureValue, this.keyValue);
+
+      // KEY TO COLORS
+      const f = Math.floor((this.keyValue*255) / 11);
+      const a = f + 80;
+      const b = f - 80;
+
+      if (f < 100) {
+        // console.log(`rgb(${a + 100},${a},${f})`);
+        fill(a + 100, a, f);
+      } else if (f > 200) {
+        // console.log(`rgb(${b},${b},${f})`);
+        fill(b, b, f);
+      } else {
+        // console.log(`rgb(${a},${b},${f})`);
+        fill(a, b, f);
+      }
+
+      // MODE TO SHAPES
+      if (this.modeValue === 1) {
+          for (let x = -750; x < windowWidth-100; x += 10) {
+            circle(x, -250, 30, 30);
+            translate(x, 0);
+            if (x > windowWidth-100) {
+              for (let y = -250; y <= windowHeight; y += 40) {
+                circle(x, y, 30, 30);
+                translate(x, y);
+              }
+            }
+          }
+      } else {
+        for (let x = -750; x < windowWidth-100; x += 10) {
+          rect(x, -250, 30, 30);
+          translate(x, 0);
+          if (x > windowWidth-100) {
+            for (let y = -250; y <= windowHeight; y += 40) {
+              rect(x, y, 30, 30);
+              translate(x, y);
+            }
+          }
+        }
+      }
+
+
+
+      // TEMPO TO MOVEMENT
+      noLoop();
+
       // console.log('drawing...', this.canvas.elt.toDataURL())
     }
   }
