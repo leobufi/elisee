@@ -19,6 +19,8 @@ export default class extends Controller {
     valence: Number
   }
 
+  static targets = ["likeForm", "canv"]
+
   connect() {
     console.log("connected to P5 controller");
     this._setupAll();
@@ -66,6 +68,35 @@ export default class extends Controller {
     window.setup = () => {}
     window.draw = () => {}
   }
+
+
+  // LIKE BUTTON
+
+  async like(e) {
+    e.preventDefault();
+
+    const form = new FormData
+    const url = this.canvas.elt.toDataURL();
+    form.append('song_id', this.idValue);
+    form.append('like[image_url]', url);
+
+    const options = {
+      method: "POST",
+      headers: { "Accept": "application/json", "X-CSRF-Token": csrfToken() },
+      body: form
+    }
+
+    const response = await fetch(`/songs/${this.idValue}/like`, options);
+    const data = await response.json();
+
+    if (data.status === 'created') {
+      this.likeFormTarget.classList.add("active");
+      // window.location.href = "/dashboard";
+    } else {
+      this.likeFormTarget.classList.remove("active");
+    }
+  }
+
 
   _setupAll() {
     this._setupWindow()
@@ -180,6 +211,7 @@ export default class extends Controller {
     }
 
   }
+
 
   _saveCanvasImageUrl() {
     const url = this.canvas.elt.toDataURL()

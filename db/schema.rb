@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2022_03_06_100016) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "status", default: false
+    t.text "image_url"
     t.index ["song_id"], name: "index_likes_on_song_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
