@@ -2,8 +2,12 @@
   border: none;
   background: transparent;
   color: white;
+
+  &:hover {
+    font-size: 40px;
+  }
 }
 
-.like-button.active{
+.like-button.active {
   color: #E7AFCC;
 }
