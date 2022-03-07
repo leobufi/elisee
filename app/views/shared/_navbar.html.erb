@@ -13,11 +13,12 @@
         <% if user_signed_in? %>
           <li><%= "Hello #{current_user.email}" %></li>
           <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
-          <li><%= link_to "My dashboard", dashboard_path %></li>
+          <li><%= link_to "My collection", dashboard_path %></li>
         <% else %>
           <li><%= link_to "Log in", new_user_session_path %></li>
           <li><%= link_to "Sign up", new_user_registration_path %></li>
         <% end %>
+        <%= link_to "Search", root_path %>
         <%= link_to "élisée project", root_path %>
         <p>©LéOlaBn / LWB#801</p>
       </ul>

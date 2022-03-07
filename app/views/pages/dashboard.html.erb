@@ -1,5 +1,16 @@
+<div class="dash-list">
+  <h3><%= current_user.email %>'s collection</h3>
+  <div class="card-all">
+  <% @likes.each do |like| %>
+    <div class="dash-item">
+      <div class="item-image">
+        <h2><%= like.song.name %></h2>
+        <img src="<%= like.song.image_url %>" alt="lol">
 
-
-<div class="dashboard-main">
-<h1>You have landed on the dashboard !</h1>
+        <%# <div class="item-text"> %>
+        <%# </div> %>
+      </div>
+    </div>
+  <% end %>
+  </div>
 </div>

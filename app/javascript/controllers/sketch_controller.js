@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { csrfToken } from "@rails/ujs";
 
 export default class extends Controller {
   static values = {
@@ -6,8 +7,9 @@ export default class extends Controller {
     key: Number,
     mode: Number,
     tempo: Number,
-    time_signature: Number,
-    loudness: Number
+    timeSignature: Number,
+    loudness: Number,
+    id: Number
   }
 
   connect() {
@@ -36,67 +38,74 @@ export default class extends Controller {
   }
 
   _drawCanvas() {
+    let retrievedUrl = false
     window.draw = () => {
+
       background(0);
-      colorMode(RGB, 255);
+
+      //directionalLight(0, 0, 100, 0, 0, -15);
+      stroke(359, 0, 0);
+      orbitControl();
 
 
 
-      // VALUES LOGS
-      // console.log(`key is ${this.keyValue}`);
-      // console.log(`key to rgb value equals ${f}`);
-      console.log(`mode is ${this.modeValue}`);
-      // console.log(`time_sig is ${this.time_signatureValue}`);
-      // console.log(`duration is ${this.durationValue}`);
 
+      //ambientMaterial(keyHue[this.keyValue], 100-((this.loudnessValue/-60)*100), modeLightness[this.modeValue]);
+      fill(color(keyHue[this.keyValue], 100-((this.loudnessValue/-60)*100), modeLightness[this.modeValue]));
 
-      // KEY TO COLORS
-      const f = Math.floor((this.keyValue*255) / 11);
-      const a = f + 80;
-      const b = f - 80;
+      rotateX(frameCount * this.durationValue/10000);
+      rotateY(frameCount * this.tempoValue/10000);
+      rotateZ(frameCount * this.timeSignatureValue/10000);
 
-      if (f < 100) {
-        // console.log(`rgb(${a + 100},${a},${f})`);
-        fill(a + 100, a, f);
-      } else if (f > 200) {
-        // console.log(`rgb(${b},${b},${f})`);
-        fill(b, b, f);
-      } else {
-        // console.log(`rgb(${a},${b},${f})`);
-        fill(a, b, f);
-      }
-
-      // MODE TO SHAPES
-      if (this.modeValue === 1) {
-          for (let x = -750; x < windowWidth-100; x += 10) {
-            circle(x, -250, 30, 30);
-            translate(x, 0);
-            if (x > windowWidth-100) {
-              for (let y = -250; y <= windowHeight; y += 40) {
-                circle(x, y, 30, 30);
-                translate(x, y);
-              }
-            }
-          }
-      } else {
-        for (let x = -750; x < windowWidth-100; x += 10) {
-          rect(x, -250, 30, 30);
-          translate(x, 0);
-          if (x > windowWidth-100) {
-            for (let y = -250; y <= windowHeight; y += 40) {
-              rect(x, y, 30, 30);
-              translate(x, y);
-            }
-          }
-        }
-      }
-
-
-
-      // TEMPO TO MOVEMENT
-      noLoop();
+      // applyMatrix(1, 1, 1, 0, 0, 0);
+      sphere(this.tempoValue)
+      torus(this.durationValue/1.5, 100-((this.loudnessValue/-60)*100), this.timeSignatureValue, this.timeSignatureValue);
 
       // console.log('drawing...', this.canvas.elt.toDataURL())
+
+      if (!retrievedUrl) {
+        this._saveCanvasImageUrl()
+        retrievedUrl = true
+      }
+      // this.canvas.elt.toBlob((blob) => {
+      //   // var newImg = document.createElement('img'),
+      //   const url = URL.createObjectURL(blob);
+
+      //   // newImg.onload = function() {
+      //     // no longer need to read the blob so it's revoked
+      //     // URL.revokeObjectURL(url);
+      //     // };
+
+      //     console.log(blob)
+      //     // newImg.src = url;
+      //     // document.body.appendChild(newImg);
+      //   });
+      // }
     }
+
+  }
+
+  _saveCanvasImageUrl() {
+    const url = this.canvas.elt.toDataURL()
+    const data = new FormData()
+
+    data.append('song[image_url]', url)
+    data.append('id', this.idValue)
+
+    this._fetchWithToken(`/attach_image_url`, {
+      method: 'POST',
+      headers: { 'Accept-Content': 'application/json'},
+      body: data
+    })
+  }
+
+
+  _fetchWithToken(url, options) {
+    options.headers = {
+      "X-CSRF-Token": csrfToken(),
+      ...options.headers
+    };
+
+    return fetch(url, options);
   }
 }
