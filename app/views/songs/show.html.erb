@@ -11,6 +11,11 @@
   data-sketch-tempo-value="<%= @song.tempo %>"
   data-sketch-time-signature-value="<%= @song.time_signature %>"
   data-sketch-loudness-value="<%= @song.loudness %>"
+  data-sketch-acousticness-value="<%= @song.acousticness %>"
+  data-sketch-danceability-value="<%= @song.danceability %>"
+  data-sketch-energy-value="<%= @song.energy %>"
+  data-sketch-instrumentalness-value="<%= @song.instrumentalness %>"
+  data-sketch-valence-value="<%= @song.valence %>"
   class='song'
 >
   <div class='song-menu d-flex justify-content-center align-items-center p-3'>
@@ -32,7 +37,7 @@
           <i class="fab fa-buffer"></i>
         <% end %>
       <% end %>
-
-  <div class='p5-canva'>
+    </div>
   </div>
+  <div class='p5-canva'></div>
 </div>
