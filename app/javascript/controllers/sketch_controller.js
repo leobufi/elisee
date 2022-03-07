@@ -23,6 +23,8 @@ export default class extends Controller {
 
   connect() {
     console.log("connected to P5 controller");
+    console.log(`key is ${this.keyValue}`);
+    console.log(`energy is ${this.energyValue}`);
     this._setupAll();
     this.randomDancers();
     this.randomEnergy();
