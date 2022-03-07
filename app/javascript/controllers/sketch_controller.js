@@ -1,5 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
+import { popper } from "@popperjs/core";
 import { csrfToken } from "@rails/ujs";
+import { normalizeOptions } from "webpack/lib/optimize/SplitChunksPlugin";
 
 export default class extends Controller {
   static values = {
@@ -19,13 +21,44 @@ export default class extends Controller {
 
   connect() {
     console.log("connected to P5 controller");
-    this._setupAll()
-    console.log(this.acousticnessValue);
-    console.log(this.danceabilityValue);
+    this._setupAll();
+    this.randomDancers();
+    this.randomEnergy();
     console.log(this.energyValue);
-    console.log(this.instrumentalnessValue);
-    console.log(this.valenceValue);
+  }
 
+  randomDancers () {
+    let i = 0
+    let dancers = Math.floor(this.danceabilityValue*20);
+    this.dancerPositions = [];
+    while (i < dancers) {
+      let randomPositionX = this.between(-window.innerWidth/2, window.innerWidth/2);
+      let randomPositionY = this.between(-window.innerHeight/2, window.innerHeight/2);
+      let randomPositionZ = this.between(-300, 0);
+      let position = [randomPositionX, randomPositionY, randomPositionZ];
+      this.dancerPositions.push(position)
+      i++
+    }
+  }
+
+  randomEnergy () {
+    let i = 0
+    let energy = Math.floor(this.energyValue*100);
+    this.energyPositions = [];
+    while (i < energy) {
+      let randomPositionX = this.between(-window.innerWidth/2, window.innerWidth/2);
+      let randomPositionY = this.between(-window.innerHeight/2, window.innerHeight/2);
+      let randomPositionZ = this.between(-300, 0);
+      let position = [randomPositionX, randomPositionY, randomPositionZ];
+      this.energyPositions.push(position)
+      i++
+    }
+  }
+
+  between(min, max) {
+  return Math.floor(
+    Math.random() * (max - min + 1) + min
+  )
   }
 
   disconnect() {
@@ -45,17 +78,15 @@ export default class extends Controller {
       this.canvas = createCanvas(windowWidth, windowHeight, WEBGL);
       colorMode(HSL);
       frameRate(90);
+      pixelDensity(1);
+      smooth();
     }
   }
 
   _drawCanvas() {
-    let retrievedUrl = false
-    window.draw = () => {
+    let retrievedUrl = false;
 
-      background(0);
-      //directionalLight(0, 0, 100, 0, 0, -15);
-      stroke(359, 0, 0);
-      orbitControl();
+    window.draw = () => {
 
       const keyHue = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
       const modeLightness = {
@@ -63,22 +94,75 @@ export default class extends Controller {
         1: 75
       };
 
-      //ambientMaterial(keyHue[this.keyValue], 100-((this.loudnessValue/-60)*100), modeLightness[this.modeValue]);
-      fill(color(keyHue[this.keyValue], 100-((this.loudnessValue/-60)*100), modeLightness[this.modeValue]));
+      let c = color(keyHue[this.keyValue], parseInt(this.energyValue * 100), modeLightness[this.modeValue]);
+      let d = color(keyHue[this.keyValue], 100-(parseInt(this.energyValue * 100)), modeLightness[this.modeValue]);
 
-      rotateX(frameCount * this.durationValue/10000);
+      background(d);
+      let brightC = brightness(c)
+      stroke(brightC);
+
+      directionalLight(0, 0, 100, -window.innerWidth/2, -window.innerHeight/2, -20);
+      directionalLight(0, 0, 100, window.innerWidth/2, -window.innerHeight/2, -20);
+      directionalLight(0, 0, 100, -window.innerWidth/2, window.innerHeight/2, 20);
+      directionalLight(0, 0, 100, window.innerWidth/2, window.innerHeight/2, 20);
+
+      fill(c);
+
+      push()
+      randomGaussian()
+      rotateX(frameCount * this.tempoValue/10000);
       rotateY(frameCount * this.tempoValue/10000);
-      rotateZ(frameCount * this.timeSignatureValue/10000);
+      rotateZ(frameCount * this.tempoValue/10000);
+      torus(((this.instrumentalnessValue)*1000)/2, 100-((this.loudnessValue/-60)*100), 100-(Math.floor(this.acousticnessValue*100)), this.timeSignatureValue);
+      pop()
 
-      // applyMatrix(1, 1, 1, 0, 0, 0);
-      sphere(this.tempoValue)
-      torus(this.durationValue/1.5, 100-((this.loudnessValue/-60)*100), this.timeSignatureValue, this.timeSignatureValue);
-      // console.log('drawing...', this.canvas.elt.toDataURL())
+      if (this.danceabilityValue > 0.5) {
+        this.dancerPositions.forEach(position => {
+          push();
+          translate(
+            position[0],
+            position[1],
+            position[2]),
+            rotateX(frameCount * this.tempoValue/10000);
+            rotateY(frameCount * this.tempoValue/10000);
+            rotateZ(frameCount * this.tempoValue/10000);
+            ellipsoid((this.energyValue)*150, 100-(Math.floor(this.acousticnessValue*100)), this.timeSignatureValue);
+          pop();
+          })
+      } else {
+        this.dancerPositions.forEach(position => {
+          push();
+          translate(
+            position[0],
+            position[1],
+            position[2]),
+            rotateX(frameCount * this.tempoValue/10000);
+            rotateY(frameCount * this.tempoValue/10000);
+            rotateZ(frameCount * this.tempoValue/10000);
+            box((this.energyValue)*150, (this.acousticnessValue*100), this.timeSignatureValue*10);
+          pop();
+          })
+      }
+
+      this.energyPositions.forEach(position => {
+        push();
+          translate(
+            position[0],
+            position[1],
+            -300),
+          rotateY(frameCount * this.tempoValue/10000);
+          square((this.energyValue)*150, (this.energyValue)*150, 100-(Math.floor(this.acousticnessValue*100)));
+          fill(c);
+        pop();
+      })
 
       if (!retrievedUrl) {
+      setTimeout(() => {
         this._saveCanvasImageUrl()
-        retrievedUrl = true
+      }, 5000);
+      retrievedUrl = true
       }
+      // this.canvas.elt.toDataURL())
       // this.canvas.elt.toBlob((blob) => {
       //   // var newImg = document.createElement('img'),
       //   const url = URL.createObjectURL(blob);
