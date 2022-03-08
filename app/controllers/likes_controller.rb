@@ -10,6 +10,6 @@ class LikesController < ApplicationController
     @like = Like.find(params[:id])
     @song = @like.song
     @like.destroy
-    redirect_to request.referer
+    redirect_to dashboard_path
   end
 end
