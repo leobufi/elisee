@@ -37,6 +37,7 @@ class SongsController < ApplicationController
     head :ok
   end
 
+
   def destroy
     @song = Song.find(params[:id])
     @song.destroy
@@ -44,16 +45,9 @@ class SongsController < ApplicationController
 
   def like
     @song = Song.find(params[:song_id])
-    @like = Like.find_by(user: current_user, song: @song)
-
-    if @like
-      @like.destroy
-      json = { status: 'deleted' }
-    else
-      @like = Like.create(user_id: current_user.id, song_id: @song.id)
-      @like.update(like_params)
-      json = { status: 'created' }
-    end
+    @like = Like.create(user_id: current_user.id, song_id: @song.id)
+    @like.update(like_params)
+    json = { status: 'created' }
     render json: json
   end
 

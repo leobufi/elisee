@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+  get 'likes/destroy'
   devise_for :users
   root to: "pages#home"
   resources :songs, except: [:edit, :update] do
     post :like, to: 'songs#like'
 
-    resources :likes, only: [:new, :create, :destroy]
+    resources :likes, only: [:destroy]
   end
 
   get '/songs_autocomplete', to: 'songs#autocomplete'

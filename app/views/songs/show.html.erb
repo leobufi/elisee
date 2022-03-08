@@ -16,8 +16,7 @@
   data-sketch-energy-value="<%= @song.energy %>"
   data-sketch-instrumentalness-value="<%= @song.instrumentalness %>"
   data-sketch-valence-value="<%= @song.valence %>"
-  class='song'
->
+  class='song'>
   <div class='song-menu d-flex justify-content-center align-items-center p-3'>
     <div class='song_text_info'>
       <h3 class= text-center><%= @song.name %></h3>
@@ -30,14 +29,15 @@
     <div class="like-btn px-4">
       <% if already_liked? %>
         <%= button_tag(type: "submit", class: 'like-button active', 'data-action': 'click->sketch#like', 'data-sketch-target': 'likeForm') do %>
-          <i class="fab fa-buffer"></i>
+          <i class="fas fa-camera-retro"></i>
         <% end %>
       <% else %>
         <%= button_tag(type: "submit", class: 'like-button', 'data-action': 'click->sketch#like', 'data-sketch-target': 'likeForm') do %>
-          <i class="fab fa-buffer"></i>
+          <i class="fas fa-camera-retro"></i>
         <% end %>
       <% end %>
     </div>
+    <div class="like-flash">Snap saved to your collection !</div>
   </div>
   <div class='p5-canva'></div>
 </div>
