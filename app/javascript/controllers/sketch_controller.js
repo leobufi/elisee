@@ -91,6 +91,7 @@ export default class extends Controller {
 
     if (data.status === 'created') {
       this.likeFormTarget.classList.add("active");
+      this._saveCanvasImageUrl();
       // window.location.href = "/dashboard";
     } else {
       this.likeFormTarget.classList.remove("active");

@@ -54,7 +54,6 @@ class SongsController < ApplicationController
       @like.update(like_params)
       json = { status: 'created' }
     end
-
     render json: json
   end
 
