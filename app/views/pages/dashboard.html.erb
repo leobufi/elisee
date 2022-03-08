@@ -1,15 +1,36 @@
   <h3><%= current_user.first_name %>'s collection</h3>
-<div class="dash-list">
-  <div class="card-all">
-  <% @likes.each do |like| %>
-    <div class="dash-item">
-      <div class="item-image">
-        <h2><%= like.song.name %></h2>
-        <img src="<%= like.image_url %>" alt="lol">
-        <%# <div class="item-text"> %>
-        <%# </div> %>
+
+<div class="carrousel-all">
+  <% @current_user.songs.uniq.reverse.each do |song| %>
+    <div class="song-carrousel">
+      <div id="carousel-<%= song.id %>" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <% likes = song.likes.where(user: current_user) %>
+          <% likes.each_with_index do |like, i| %>
+            <div class="carousel-item <%= i == 0 ? ' active' : ''%>">
+              <div class="carousel-item-content">
+                <div class="song-carrousel-text">
+                  <h4><%= song.name %></h4>
+                  <h4><%= song.artist %></h4>
+                  <h4><%= song.album %></h4>
+                  <h4><%= i + 1 %>/<%= pluralize(likes.count, 'snap') %></h4>
+                </div>
+                <%= link_to 'delete', like_destroy_path(like), class: 'destroy-btn', method: :delete %>
+                <img src="<%= like.image_url %>" class="d-block w-100" alt="">
+              </div>
+              <%= link_to 'download', like_path(like), class: 'dl-btn' %>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<%= song.id %>" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carousel-<%= song.id %>" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   <% end %>
-  </div>
 </div>

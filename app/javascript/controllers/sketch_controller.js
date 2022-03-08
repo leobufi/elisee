@@ -19,7 +19,7 @@ export default class extends Controller {
     valence: Number
   }
 
-  static targets = ["likeForm", "canv"]
+  static targets = ["likeForm", "canv", "likeFlash"]
 
   connect() {
     console.log("connected to P5 controller");
@@ -95,6 +95,10 @@ export default class extends Controller {
       setTimeout(() => {
         this.screenshot = false;
       }, 500);
+      this.likeFlashTarget.classList.add("active");
+      setTimeout(() => {
+      this.likeFlashTarget.classList.remove("active");
+      }, 2000);
       // window.location.href = "/dashboard";
     } else {
       this.likeFormTarget.classList.remove("active");
