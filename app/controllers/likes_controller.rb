@@ -1,9 +1,15 @@
 class LikesController < ApplicationController
-  def destroy
-    @user = current_user
-    @song = Song.find(params[:song_id])
-    @like.song = @song
+  def show
     @like = Like.find(params[:id])
+    # render plain: like.image_url
+    data = Base64.decode64(@like.image_url.gsub(/\Adata:image\/png;base64,/, ''))
+    send_data data, filename: 'yourrender.png'
+  end
+
+  def destroy
+    @like = Like.find(params[:id])
+    @song = @like.song
     @like.destroy
+    redirect_to request.referer
   end
 end

@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   root to: "pages#home"
   resources :songs, except: [:edit, :update] do
     post :like, to: 'songs#like'
-
-    resources :likes, only: [:destroy], as: :dest
   end
+  resources :likes, only: :destroy, as: :like_destroy
+  resources :likes, only: :show
 
   get '/songs_autocomplete', to: 'songs#autocomplete'
   get '/song', to: 'songs#show'

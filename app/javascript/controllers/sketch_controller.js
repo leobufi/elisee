@@ -19,16 +19,13 @@ export default class extends Controller {
     valence: Number
   }
 
-  static targets = ["likeForm", "canv"]
+  static targets = ["likeForm", "canv", "likeFlash"]
 
   connect() {
     console.log("connected to P5 controller");
-    console.log(`key is ${this.keyValue}`);
-    console.log(`energy is ${this.energyValue}`);
     this._setupAll();
     this.randomDancers();
     this.randomEnergy();
-    console.log(this.energyValue);
   }
 
   randomDancers () {
@@ -98,6 +95,10 @@ export default class extends Controller {
       setTimeout(() => {
         this.screenshot = false;
       }, 500);
+      this.likeFlashTarget.classList.add("active");
+      setTimeout(() => {
+      this.likeFlashTarget.classList.remove("active");
+      }, 2000);
       // window.location.href = "/dashboard";
     } else {
       this.likeFormTarget.classList.remove("active");
@@ -115,9 +116,20 @@ export default class extends Controller {
       console.log('setup inside')
       this.canvas = createCanvas(windowWidth, windowHeight, WEBGL);
       colorMode(HSL);
-      frameRate(90);
+      frameRate(100);
       pixelDensity(1);
       smooth();
+      console.log(`duration is ${this.durationValue}`);
+      console.log(`key is ${this.keyValue}`);
+      console.log(`mode is ${this.modeValue}`);
+      console.log(`tempo is ${this.tempoValue}`);
+      console.log(`timeSignature is ${this.timeSignatureValue}`);
+      console.log(`loudness is ${this.loudnessValue}`);
+      console.log(`acousticness is ${this.acousticnessValue}`);
+      console.log(`danceability is ${this.danceabilityValue}`);
+      console.log(`energy is ${this.energyValue}`);
+      console.log(`instrumentalness is ${this.instrumentalnessValue}`);
+      console.log(`valence is ${this.valenceValue}`);
     }
   }
 
@@ -126,14 +138,18 @@ export default class extends Controller {
 
     window.draw = () => {
 
+      // calcul loudness/saturation : 100-(this.loudnessValue/-60)*100);
+
+      // COLOR SETUP : KEY = TEINTE, ENERGY = SATURATION, MODE = LUMIÈRE;
+
       const keyHue = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
       const modeLightness = {
         0: 25,
         1: 75
       };
 
-      let c = color(keyHue[this.keyValue], parseInt(this.energyValue * 100), modeLightness[this.modeValue]);
-      let d = color(keyHue[this.keyValue], 100-(parseInt(this.energyValue * 100)), modeLightness[this.modeValue]);
+      let c = color(keyHue[this.keyValue], parseInt(this.energyValue * 10000), modeLightness[this.modeValue]);
+      let d = color(keyHue[this.keyValue], 100-(parseInt(this.energyValue * 10000)), modeLightness[this.modeValue]);
 
       if (this.screenshot === true) {
         background(color(0, 0, 100));
@@ -141,63 +157,127 @@ export default class extends Controller {
         background(d);
       }
 
+
       let brightC = brightness(c)
       stroke(brightC);
 
-      directionalLight(0, 0, 100, -window.innerWidth/2, -window.innerHeight/2, -20);
-      directionalLight(0, 0, 100, window.innerWidth/2, -window.innerHeight/2, -20);
-      directionalLight(0, 0, 100, -window.innerWidth/2, window.innerHeight/2, 20);
-      directionalLight(0, 0, 100, window.innerWidth/2, window.innerHeight/2, 20);
+      // 4 LUMIERE SETUP
 
-      fill(c);
+      directionalLight(0, 0, 100, -window.innerWidth/2, -window.innerHeight/2, 0);
+      directionalLight(0, 0, 100, window.innerWidth/2, -window.innerHeight/2, 0);
+      directionalLight(0, 0, 100, -window.innerWidth/2, window.innerHeight/2, 0);
+      directionalLight(0, 0, 100, window.innerWidth/2, window.innerHeight/2, 0);
+
+      // SHAPES SETUP
+      // 1. MAIN SHAPE :
+      // - ROTATION = 100 FRAMECOUNT PER SECOND * TEMPO VALUE (BPM) / 10000;
+      // - SHAPE = TORUS
+      //     TAILLE = ENERGY > PLUS LA MUSIQUE EST ENERGIQUE, PLUS L'OBJET EST GRAND.
+      //     LARGEUR = INSTRUMENTATION > PLUS LA MUSIQUE EST INSTRUMENTALE, PLUS L'OBJET EST LARGE.
+      //     NBRE DE CÔTÉS = PLUS LA MUSIQUE EST ACOUSTIQUE, MOINS L'OBJET A DE COTÉS.
 
       push()
-      randomGaussian()
-      rotateX(frameCount * this.tempoValue/10000);
-      rotateY(frameCount * this.tempoValue/10000);
-      rotateZ(frameCount * this.tempoValue/10000);
-      torus(((this.instrumentalnessValue)*1000)/2, 100-((this.loudnessValue/-60)*100), 100-(Math.floor(this.acousticnessValue*100)), this.timeSignatureValue);
+        rotateX(frameCount * this.tempoValue/10000);
+        rotateY(frameCount * this.tempoValue/10000);
+        rotateZ(frameCount * this.tempoValue/10000);
+        noStroke();
+        fill(c);
+        torus((this.energyValue*1000), parseInt((this.instrumentalnessValue)*100), 100-(Math.floor(this.acousticnessValue*100)));
       pop()
 
-      if (this.danceabilityValue > 0.5) {
+      //2.DANCERS
+
+      if (this.danceabilityValue > 0.67) {
         this.dancerPositions.forEach(position => {
           push();
-          translate(
-            position[0],
-            position[1],
-            position[2]),
+            translate(
+              position[0],
+              position[1],
+              position[2]
+            ),
             rotateX(frameCount * this.tempoValue/10000);
             rotateY(frameCount * this.tempoValue/10000);
             rotateZ(frameCount * this.tempoValue/10000);
-            ellipsoid((this.energyValue)*150, 100-(Math.floor(this.acousticnessValue*100)), this.timeSignatureValue);
+            fill(c);
+            ellipsoid((this.instrumentalnessValue)*150, this.valenceValue*100, this.timeSignatureValue*10);
           pop();
-          })
+        })
+      } else if (this.danceabilityValue < 0.67 && this.danceabilityValue > 0.33) {
+        this.dancerPositions.forEach(position => {
+          push();
+            translate(
+              position[0],
+              position[1],
+              position[2]
+            ),
+            rotateX(frameCount * this.tempoValue/10000);
+            rotateY(frameCount * this.tempoValue/10000);
+            rotateZ(frameCount * this.tempoValue/10000);
+            fill(c);
+            cylinder(this.instrumentalnessValue*100, this.valenceValue*100, this.timeSignatureValue);
+          pop();
+        })
       } else {
         this.dancerPositions.forEach(position => {
           push();
-          translate(
-            position[0],
-            position[1],
-            position[2]),
+            translate(
+              position[0],
+              position[1],
+              position[2]
+            ),
             rotateX(frameCount * this.tempoValue/10000);
             rotateY(frameCount * this.tempoValue/10000);
             rotateZ(frameCount * this.tempoValue/10000);
-            box((this.energyValue)*150, (this.acousticnessValue*100), this.timeSignatureValue*10);
+            fill(c);
+            box(this.instrumentalnessValue*150, this.valenceValue*100, this.timeSignatureValue*10);
           pop();
-          })
+        })
       }
 
-      this.energyPositions.forEach(position => {
-        push();
-          translate(
-            position[0],
-            position[1],
-            -300),
-          rotateY(frameCount * this.tempoValue/10000);
-          square((this.energyValue)*150, (this.energyValue)*150, 100-(Math.floor(this.acousticnessValue*100)));
-          fill(c);
-        pop();
-      })
+      // 3.ENERGY/NOISE
+
+      if (this.energyValue > 0.67) {
+        this.energyPositions.forEach(position => {
+          push();
+            translate(
+              position[0],
+              position[1],
+              position[2]
+            ),
+            rotateY(frameCount * this.tempoValue/10000);
+            fill(c);
+            box(this.energyValue*150, this.energyValue*150, 100-(Math.floor(this.acousticnessValue*100)));
+          pop();
+        })
+      } else if (this.energyValue < 0.67 && this.energyValue > 0.33) {
+        this.energyPositions.forEach(position => {
+          push();
+            translate(
+              position[0],
+              position[1],
+              position[2]
+            ),
+            rotateY(frameCount * this.tempoValue/10000);
+            fill(c);
+            square(this.energyValue*150, this.energyValue*150, 100-(Math.floor(this.acousticnessValue*100)));
+          pop();
+        })
+      } else {
+        this.energyPositions.forEach(position => {
+          push();
+            translate(
+              position[0],
+              position[1],
+              position[2]
+            ),
+            rotateY(frameCount * this.tempoValue/10000);
+            fill(c);
+            plane(this.energyValue*150, this.energyValue*150, 100-(Math.floor(this.acousticnessValue*100)));
+          pop();
+        })
+      }
+
+      // SAVING IMAGES FROM CANVA
 
       if (!retrievedUrl) {
       setTimeout(() => {
