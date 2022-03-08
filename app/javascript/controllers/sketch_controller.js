@@ -93,6 +93,11 @@ export default class extends Controller {
 
     if (data.status === 'created') {
       this.likeFormTarget.classList.add("active");
+      this._saveCanvasImageUrl();
+      this.screenshot = true;
+      setTimeout(() => {
+        this.screenshot = false;
+      }, 500);
       // window.location.href = "/dashboard";
     } else {
       this.likeFormTarget.classList.remove("active");
@@ -130,7 +135,12 @@ export default class extends Controller {
       let c = color(keyHue[this.keyValue], parseInt(this.energyValue * 100), modeLightness[this.modeValue]);
       let d = color(keyHue[this.keyValue], 100-(parseInt(this.energyValue * 100)), modeLightness[this.modeValue]);
 
-      background(d);
+      if (this.screenshot === true) {
+        background(color(0, 0, 100));
+      } else {
+        background(d);
+      }
+
       let brightC = brightness(c)
       stroke(brightC);
 
