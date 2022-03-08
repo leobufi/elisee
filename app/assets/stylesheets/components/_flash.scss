@@ -16,6 +16,15 @@
 
 .like-flash {
   display: none;
-  font-size: 16px;
-  transition: visibility 0.2s;
+  font-size: 40px;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  color: #E7AFCC;
+  transition: visibility 1s, opacity 1s;
+
+
+  &.active {
+    display: inline-block;
+  }
 }

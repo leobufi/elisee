@@ -29,15 +29,15 @@
     <div class="like-btn px-4">
       <% if already_liked? %>
         <%= button_tag(type: "submit", class: 'like-button active', 'data-action': 'click->sketch#like', 'data-sketch-target': 'likeForm') do %>
-          <i class="fas fa-camera-retro"></i>
+          <i class="fas fa-record-vinyl"></i>
         <% end %>
       <% else %>
         <%= button_tag(type: "submit", class: 'like-button', 'data-action': 'click->sketch#like', 'data-sketch-target': 'likeForm') do %>
-          <i class="fas fa-camera-retro"></i>
+          <i class="fas fa-record-vinyl"></i>
         <% end %>
       <% end %>
     </div>
-    <div class="like-flash">Snap saved to your collection !</div>
   </div>
   <div class='p5-canva'></div>
+  <div data-action="click->sketch#like" data-sketch-target="likeFlash" class="like-flash">Snap saved to your collection !</div>
 </div>

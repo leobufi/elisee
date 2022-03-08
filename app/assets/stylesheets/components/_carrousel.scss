@@ -1,0 +1,17 @@
+.carrousel-all{
+  width: 80vw;
+  margin: 100px auto;
+}
+
+.song-carrousel {
+  margin-bottom: 100px;
+  padding: 50px;
+  scroll-snap-align: start;
+  scroll-margin: 50px;
+}
+
+.song-carrousel-text{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}

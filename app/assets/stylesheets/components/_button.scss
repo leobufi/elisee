@@ -2,12 +2,28 @@
   border: none;
   background: transparent;
   color: white;
+  font-size: 30px;
 
-  &:hover {
-    font-size: 40px;
+  :hover {
+    color: #E7AFCC;
   }
 }
 
 .like-button.active {
-  color: #E7AFCC;
+  color: #fff;
+}
+
+
+.destroy-btn{
+  z-index: 999999;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.dl-btn{
+  z-index: 999999;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
 }
