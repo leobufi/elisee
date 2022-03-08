@@ -15,13 +15,13 @@
     <div class="like-btn px-4">
       <% if already_liked? %>
         <%= simple_form_for [@song, @like], method: :delete do |f| %>
-          <%= button_tag(type: "submit", class: "like-button active") do %>
+          <%= button_tag(type: "submit", class: "like-button active", id: "btn-like") do %>
             <i class="fas fa-heart"></i>
           <% end %>
         <% end %>
       <% else %>
         <%= simple_form_for [@song, @like] do |f| %>
-          <%= button_tag(type: "submit", class: "like-button") do %>
+          <%= button_tag(type: "submit", class: "like-button", id: "btn-like") do %>
             <i class="fas fa-heart"></i>
             <% end %>
           <% end %>

@@ -6,3 +6,12 @@
   justify-content: space-around;
   align-items: center;
 }
+
+.card-all {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+h3 {
+  text-align: center;
+}
