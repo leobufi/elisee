@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:autocomplete, :show]
+  skip_before_action :authenticate_user!, only: [:autocomplete]
   helper_method :already_liked?
 
   def index
@@ -31,7 +31,9 @@ class SongsController < ApplicationController
 
   def attach_image_url
     @song = Song.find(params[:id])
-    @song.update_column(:image_url, params[:song][:image_url])
+    @user = current_user
+    @like = @song.like
+    @like.update_column(:image_url, params[:like][:image_url])
     head :ok
   end
 
@@ -41,9 +43,18 @@ class SongsController < ApplicationController
   end
 
   def like
-    @song = Song.find(params[:id])
-    Like.create(user_id: current_user.id, song_id: @song.id)
-    redirect_to song_path(@song)
+    @song = Song.find(params[:song_id])
+    @like = Like.find_by(user: current_user, song: @song)
+
+    if @like
+      @like.destroy
+      json = { status: 'deleted' }
+    else
+      @like = Like.create(user_id: current_user.id, song_id: @song.id)
+      @like.update(like_params)
+      json = { status: 'created' }
+    end
+    render json: json
   end
 
   def autocomplete
@@ -63,7 +74,16 @@ class SongsController < ApplicationController
                                 :tempo,
                                 :spotify_id,
                                 :time_signature,
-                                :loudness)
+                                :loudness,
+                                :acousticness,
+                                :danceability,
+                                :energy,
+                                :instrumentalness,
+                                :valence)
+  end
+
+  def like_params
+    params.require(:like).permit(:image_url)
   end
 
   def already_liked?

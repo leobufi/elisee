@@ -2,7 +2,22 @@
   <meta name="turbolinks-visit-control" content="reload">
   <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js" async defer></script>
 <% end %>
-<div class='song'>
+<div
+  data-controller="sketch"
+  data-sketch-id-value="<%= @song.id %>"
+  data-sketch-duration-value="<%= @song.duration %>"
+  data-sketch-key-value="<%= @song.key %>"
+  data-sketch-mode-value="<%= @song.mode %>"
+  data-sketch-tempo-value="<%= @song.tempo %>"
+  data-sketch-time-signature-value="<%= @song.time_signature %>"
+  data-sketch-loudness-value="<%= @song.loudness %>"
+  data-sketch-acousticness-value="<%= @song.acousticness %>"
+  data-sketch-danceability-value="<%= @song.danceability %>"
+  data-sketch-energy-value="<%= @song.energy %>"
+  data-sketch-instrumentalness-value="<%= @song.instrumentalness %>"
+  data-sketch-valence-value="<%= @song.valence %>"
+  class='song'
+>
   <div class='song-menu d-flex justify-content-center align-items-center p-3'>
     <div class='song_text_info'>
       <h3 class= text-center><%= @song.name %></h3>
@@ -14,28 +29,15 @@
     </div>
     <div class="like-btn px-4">
       <% if already_liked? %>
-        <%= simple_form_for [@song, @like], method: :delete do |f| %>
-          <%= button_tag(type: "submit", class: "like-button active", id: "btn-like") do %>
-            <i class="fas fa-heart"></i>
-          <% end %>
+        <%= button_tag(type: "submit", class: 'like-button active', 'data-action': 'click->sketch#like', 'data-sketch-target': 'likeForm') do %>
+          <i class="fab fa-buffer"></i>
         <% end %>
       <% else %>
-        <%= simple_form_for [@song, @like] do |f| %>
-          <%= button_tag(type: "submit", class: "like-button", id: "btn-like") do %>
-            <i class="fas fa-heart"></i>
-            <% end %>
-          <% end %>
+        <%= button_tag(type: "submit", class: 'like-button', 'data-action': 'click->sketch#like', 'data-sketch-target': 'likeForm') do %>
+          <i class="fab fa-buffer"></i>
+        <% end %>
       <% end %>
     </div>
-    <button class="" type="button">Export</button>
   </div>
-  <div class='p5-canva' data-controller="sketch"
-        data-sketch-id-value="<%= @song.id %>"
-        data-sketch-duration-value="<%= @song.duration %>"
-        data-sketch-key-value="<%= @song.key %>"
-        data-sketch-mode-value="<%= @song.mode %>"
-        data-sketch-tempo-value="<%= @song.tempo %>"
-        data-sketch-time-signature-value="<%= @song.time_signature %>"
-        data-sketch-loudness-value="<%= @song.loudness %>">
-  </div>
+  <div class='p5-canva'></div>
 </div>
