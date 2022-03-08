@@ -30,7 +30,13 @@ playlist.tracks.each do |track|
   puts "1 song created"
 end
 
-puts "new user online" if User.create!(email: 'creator2@elisee.wow', password: '123456')
+puts "new user online" if User.create!(email: 'creators@elisee.wow',
+                                       password: '123456',
+                                       first_name: 'Elisée',
+                                       last_name: 'Reclus',
+                                       address: '16 Vila gaudelet',
+                                       phone_number: '23456789')
+
 
 puts "pfiou....quel boulot...."
 puts "j'en suis fort aise"
