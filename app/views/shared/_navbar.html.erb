@@ -1,5 +1,7 @@
 <header>
-    <nav data-controller="navbar" data-navbar-target="menu">
+    <nav class="<% if action_name == 'dashboard' %>scroll-snap<% end %>"
+         data-controller="navbar"
+         data-navbar-target="menu">
       <div class="logo">
        <%=link_to root_path do %>
        <h1>élisée </h1>
