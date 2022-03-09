@@ -8,11 +8,15 @@ class SongsController < ApplicationController
 
   def show
     @song = Song.find(params[:id])
-    if already_liked?
-      @like = Like.where(user_id: current_user.id, song_id: params[:id]).first
-    else
-      @like = Like.new
-    end
+    # if already_liked?
+    #   @like = Like.where(user_id: current_user.id, song_id: params[:id]).first
+    # else
+    # @like = Like.create(like_params)
+
+    # end
+    # @like.update(like_params)
+    # json = { status: 'created' }
+    # render json: json
   end
 
   def new
@@ -47,7 +51,7 @@ class SongsController < ApplicationController
     @song = Song.find(params[:song_id])
     @like = Like.create(user_id: current_user.id, song_id: @song.id)
     @like.update(like_params)
-    json = { status: 'created' }
+    json = { status: 'created', image_url: @like.image_url }
     render json: json
   end
 

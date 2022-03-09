@@ -19,7 +19,7 @@ export default class extends Controller {
     valence: Number
   }
 
-  static targets = ["likeForm", "canv", "likeFlash"]
+  static targets = ["likeForm", "canv", "likeFlash", "snapshot", "snapImg"]
 
   connect() {
     console.log("connected to P5 controller");
@@ -87,9 +87,16 @@ export default class extends Controller {
 
     const response = await fetch(`/songs/${this.idValue}/like`, options);
     const data = await response.json();
+    console.log(data)
+
+    // si le statut est créé, j'ai bien récupéré dans les data l'url de l'image
+    // j'affiche le bloc qui contient le snapshot
+    // je donne comme source de la balise img l'url de l'image fournie par le controller
 
     if (data.status === 'created') {
       this.likeFormTarget.classList.add("active");
+      this.snapshotTarget.classList.add("show");
+      this.snapImgTarget.src = data.image_url;
       this._saveCanvasImageUrl();
       this.screenshot = true;
       setTimeout(() => {
@@ -98,7 +105,8 @@ export default class extends Controller {
       this.likeFlashTarget.classList.add("active");
       setTimeout(() => {
       this.likeFlashTarget.classList.remove("active");
-      }, 2000);
+      this.snapshotTarget.classList.remove("show");
+      }, 3000);
       // window.location.href = "/dashboard";
     } else {
       this.likeFormTarget.classList.remove("active");
