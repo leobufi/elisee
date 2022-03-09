@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/songs_autocomplete', to: 'songs#autocomplete'
   get '/song', to: 'songs#show'
   get '/dashboard', to: 'pages#dashboard'
+  get 'project', to: 'pages#project', as: :project
   post '/attach_image_url', to: 'songs#attach_image_url', as: :attach_image_url
   get 'dashboard/download_png', as: :download
 end
