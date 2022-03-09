@@ -10,12 +10,12 @@
 .card-all {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-}
 
-h3 {
-  text-align: center;
-}
+  &h3 {
+    text-align: center;
+  }
 
-h2 {
-  font-size: 15px;
+  &h2 {
+    font-size: 15px;
+  }
 }
