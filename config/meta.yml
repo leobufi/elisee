@@ -1,0 +1,4 @@
+meta_product_name: "elisee"
+meta_title: "elisee - visualize your favorite songs"
+meta_description: "elisee provides you with a JavaScript-based graphic render for any song you would like to play, actually turning music into shapes and colors !"
+meta_image: "yourrender.png" # should exist in `app/assets/images/`
