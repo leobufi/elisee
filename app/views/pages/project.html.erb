@@ -1,0 +1,265 @@
+<div class="project-container">
+  <h1>What's élisée ?</h1>
+  <p>
+    élisée is an experimental visual project led by Benjamin Salloum,
+    Oladélé Houéssou and Léo Bufi, started during their bootcamp at Le Wagon.
+    It's a web program that attempts to visually
+    and sensibly represent music.
+    Thanks to a <em><a href="https://developer.spotify.com/documentation/web-api/reference/#/">Spotify API</a></em>
+    , it collect datas about track's rythm, key, energy and others musical
+    specificities, and translate them into shapes and colors
+    using <em><a href="https://p5js.org/">P5.js</a></em>, a JavaScript library made by <em><a href="https://processingfoundation.org/">the Processing Foundation</a></em>.
+  </p>
+  <p>
+    élisée is made to be improved by everyone, so here is the JavaScript code.
+    The app is made with Ruby on Rails, and we use Stimulus for our JavaScript code.
+    You can also find the entire code of élisée on <em><a href="https://github.com/leobufi/elisee">Github</a></em>.
+  </p>
+  <h2>How it works?</h2>
+  <p>
+    First of all, we bring the musical values into a Stimulus Controller:
+  </p>
+  <pre>
+    <code>
+    static values = {
+      duration: Number,
+      key: Number,
+      mode: Number,
+      tempo: Number,
+      timeSignature: Number,
+      loudness: Number,
+      id: Number,
+      acousticness: Number,
+      danceability: Number,
+      energy: Number,
+      instrumentalness: Number,
+      valence: Number
+    }
+    </code>
+  </pre>
+    <p>Then, we setup some functions, that will gave us some random positions: </p>
+  <pre>
+    <code>
+      randomDancers () {
+        let i = 0
+        let dancers = Math.floor(this.danceabilityValue*20);
+        this.dancerPositions = [];
+        while (i < dancers) {
+          let randomPositionX = this.between(-window.innerWidth/2, window.innerWidth/2);
+          let randomPositionY = this.between(-window.innerHeight/2, window.innerHeight/2);
+          let randomPositionZ = this.between(-300, 0);
+          let position = [randomPositionX, randomPositionY, randomPositionZ];
+          this.dancerPositions.push(position)
+          i++
+        }
+      }
+
+      randomEnergy () {
+        let i = 0
+        let energy = Math.floor(this.energyValue*100);
+        this.energyPositions = [];
+        while (i < energy) {
+          let randomPositionX = this.between(-window.innerWidth/2, window.innerWidth/2);
+          let randomPositionY = this.between(-window.innerHeight/2, window.innerHeight/2);
+          let randomPositionZ = this.between(-300, 0);
+          let position = [randomPositionX, randomPositionY, randomPositionZ];
+          this.energyPositions.push(position)
+          i++
+        }
+      }
+
+      between(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min)
+      }
+    </code>
+  </pre>
+  <p>
+    And we call them in the Stimulus connect function with the setupAll function.
+  </p>
+  <pre>
+    <code>
+      connect() {
+        console.log("connected to P5 controller");
+        this._setupAll();
+        this.randomDancers();
+        this.randomEnergy();
+      }
+
+      setupAll() {
+        this._setupWindow()
+        this._drawCanvas()
+      }
+    </code>
+  </pre>
+  <p>
+    And then, we configure the P5 'setup' function with a 3D canva, a colorMode in HSL(very important)
+    , a frameRate of 100 and the smooth function that smoothes the movement of the shapes (not define by default when you use a 3D canva).
+  </p>
+  <pre>
+    <code>
+      _setupWindow() {
+        window.setup = () => {
+          console.log('setup inside')
+          this.canvas = createCanvas(windowWidth, windowHeight, WEBGL);
+          colorMode(HSL);
+          frameRate(100);
+          smooth();
+        }
+      }
+    </code>
+  </pre>
+  <p>
+    Below is the P5 draw function, the one in which everything happens.
+    Here, descriptions are written in the code. They explain all the
+    choices of correlations between musical data and visual shapes provided by P5.js.
+  </p>
+  <pre>
+    <code>
+      _drawCanvas() {
+          let retrievedUrl = false;
+
+          window.draw = () => {
+
+            // COLOR SETUP : KEY = HUE, ENERGY = SATURATION, MODE = LIGHT;
+            // THE HUE IS DEFINED BY THE KEY. BY LUCK THERE IS 12 PRIMARY COLORS AND 12 MUSICAL KEYS.
+            // PRIMARY COLORS ARE MODIFIED BY THE SATURATION LEVEL, DEFINED BY THE DEGREE OF ENERGY
+            // OF THE TRACK, AND THE LIGHTNESS, THAT DEPEND ON THE MODE(MAJOR OR MINOR).
+
+            const keyHue = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+            const modeLightness = {
+              0: 25,
+              1: 75
+            };
+
+            let c = color(keyHue[this.keyValue], parseInt(this.energyValue * 10000), modeLightness[this.modeValue]);
+
+            // LIGHT SETUP
+
+            directionalLight(0, 0, 100, -window.innerWidth/2, -window.innerHeight/2, 0);
+            directionalLight(0, 0, 100, window.innerWidth/2, -window.innerHeight/2, 0);
+            directionalLight(0, 0, 100, -window.innerWidth/2, window.innerHeight/2, 0);
+            directionalLight(0, 0, 100, window.innerWidth/2, window.innerHeight/2, 0);
+
+            // SHAPES SETUP
+
+            // 1. MAIN SHAPE
+            // THE MAIN SHAPE REPRESENT THE GLOBAL CHARACTERISTICS OF THE TRACK:
+            // - ROTATION = 100 FRAMECOUNT PER SECOND(DEFINE IN FRAMERATE) * TEMPO VALUE (BPM) / 10000;
+            // - SHAPE = TORUS
+            //     SIZE = ENERGY > THE MORE THE MUSIC IS ENERGIC, THE MORE THE OBJECT IS BIG.
+            //     LENGHT = INSTRUMENTATION > THE MORE THE MUSIC IS INSTRUMENTAL, THE MORE THE OBJECT IS LARGE.
+            //     NUMBER OF SIDES = THE MORE THE MUSIC IS ACOUSTIC, THE LESS THE OBJECT HAS SIDES.
+            // - COLOR = THE SHAPE IS FILL WITH THE C COLOR DEFINED ABOVE.
+
+            push()
+              rotateX(frameCount * this.tempoValue/10000);
+              rotateY(frameCount * this.tempoValue/10000);
+              rotateZ(frameCount * this.tempoValue/10000);
+              noStroke();
+              fill(c);
+              torus((this.energyValue*1000), parseInt((this.instrumentalnessValue)*100), 100-(Math.floor(this.acousticnessValue*100)));
+            pop()
+
+            //2.DANCERS
+            //  WE DEFINE 3 GROUPS OF DANCERS, DEPENDING ON THE DANCEABILITY VALUE OF THE TRACK.
+            //  THE MORE THE TRACK IS DANCEABLE, THE MORE THERE IS DANCERS ON THE SCREEN. IN EACH GROUPS,
+            //  DANCERS HAVE THE SAME SHAPE, DEPENDING ON THE INSTRUMENTALNESS, THE HAPINESS AND
+            //  THE TIME SIGNATURE OF THE TRACK. THEY ALSO HAVE THE SAME ROTATION AND RANDOM POSITIONS ON THE CANVA.
+
+            if (this.danceabilityValue > 0.67) {
+              this.dancerPositions.forEach(position => {
+                push();
+                  translate(
+                    position[0],
+                    position[1],
+                    position[2]
+                  ),
+                  rotateX(frameCount * this.tempoValue/10000);
+                  rotateY(frameCount * this.tempoValue/10000);
+                  rotateZ(frameCount * this.tempoValue/10000);
+                  fill(c);
+                  ellipsoid((this.instrumentalnessValue)*150, this.valenceValue*100, this.timeSignatureValue*10);
+                pop();
+              })
+            } else if (this.danceabilityValue < 0.67 && this.danceabilityValue > 0.33) {
+              this.dancerPositions.forEach(position => {
+                push();
+                  translate(
+                    position[0],
+                    position[1],
+                    position[2]
+                  ),
+                  rotateX(frameCount * this.tempoValue/10000);
+                  rotateY(frameCount * this.tempoValue/10000);
+                  rotateZ(frameCount * this.tempoValue/10000);
+                  fill(c);
+                  cylinder(this.instrumentalnessValue*100, this.valenceValue*100, this.timeSignatureValue);
+                pop();
+              })
+            } else {
+              this.dancerPositions.forEach(position => {
+                push();
+                  translate(
+                    position[0],
+                    position[1],
+                    position[2]
+                  ),
+                  rotateX(frameCount * this.tempoValue/10000);
+                  rotateY(frameCount * this.tempoValue/10000);
+                  rotateZ(frameCount * this.tempoValue/10000);
+                  fill(c);
+                  box(this.instrumentalnessValue*150, this.valenceValue*100, this.timeSignatureValue*10);
+                pop();
+              })
+            }
+
+            // 3.ENERGY/NOISE
+            // WE USE THE SAME PRINCIPLE AS THE DANCERS BUT INSTEAD OF THE DANCEABILITY
+            // VALUE, WE USE THE ENERGY VALUE. THE SHAPES DEPEND ON THE ENERGY VALUE AND
+            // THE ACOUSTICNESS VALUE OF THE TRACK.
+
+            if (this.energyValue > 0.67) {
+              this.energyPositions.forEach(position => {
+                push();
+                  translate(
+                    position[0],
+                    position[1],
+                    position[2]
+                  ),
+                  rotateY(frameCount * this.tempoValue/10000);
+                  fill(c);
+                  box(this.energyValue*150, this.energyValue*150, 100-(Math.floor(this.acousticnessValue*100)));
+                pop();
+              })
+            } else if (this.energyValue < 0.67 && this.energyValue > 0.33) {
+              this.energyPositions.forEach(position => {
+                push();
+                  translate(
+                    position[0],
+                    position[1],
+                    position[2]
+                  ),
+                  rotateY(frameCount * this.tempoValue/10000);
+                  fill(c);
+                  square(this.energyValue*150, this.energyValue*150, 100-(Math.floor(this.acousticnessValue*100)));
+                pop();
+              })
+            } else {
+              this.energyPositions.forEach(position => {
+                push();
+                  translate(
+                    position[0],
+                    position[1],
+                    position[2]
+                  ),
+                  rotateY(frameCount * this.tempoValue/10000);
+                  fill(c);
+                  plane(this.energyValue*150, this.energyValue*150, 100-(Math.floor(this.acousticnessValue*100)));
+                pop();
+              })
+            }
+          }
+      }
+    </code>
+  </pre>
+</div>

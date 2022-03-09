@@ -16,4 +16,7 @@ class PagesController < ApplicationController
     @like = Like.new
     @likes = current_user.likes
   end
+
+  def project
+  end
 end
