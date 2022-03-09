@@ -304,7 +304,6 @@ export default class extends Controller {
 
   }
 
-
   _saveCanvasImageUrl() {
     const url = this.canvas.elt.toDataURL()
     const data = new FormData()
