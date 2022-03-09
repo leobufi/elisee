@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
   def user_params
     %i[ first_name last_name phone_number address  ].freeze
   end
+
+  def default_url_options
+    { host: ENV["DOMAIN"] || "localhost:3000" }
+  end
 end
