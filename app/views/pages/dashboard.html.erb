@@ -1,4 +1,5 @@
 <div class="carrousel-all">
+  <div class="songs-dashboard"><%= pluralize(@current_user.songs.uniq.count, 'song')%> in your collection</div>
   <% @current_user.songs.uniq.reverse.each do |song| %>
     <div class="song-carrousel">
       <div id="carousel-<%= song.id %>" class="carousel slide" data-bs-ride="carousel">
