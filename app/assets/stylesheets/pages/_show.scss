@@ -9,3 +9,11 @@
   position: fixed;
   z-index: 21;
 }
+
+.song-infos {
+  position: absolute;
+  top: 250px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+}

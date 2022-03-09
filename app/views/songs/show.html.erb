@@ -39,6 +39,12 @@
     </div>
   </div>
   <div class='p5-canva'></div>
+  <div class="song-infos">
+    <span class="song-info">Key: <%= Song::KEYS[@song.key] %> <%= Song::MODES[@song.mode] %></span>
+    <span class="song-info">BPM: <%= @song.tempo.floor %></span>
+    <span class="song-info"><%= @song.danceability_level %> danceable</span>
+    <span class="song-info"><%= @song.energy_level %> level of energy</span>
+  </div>
   <div data-action="click->sketch#like" data-sketch-target="likeFlash" class="like-flash">Snap saved to your collection !</div>
   <div data-sketch-target="snapshot" data-action="click->sketch#like" class="like-snap-thumbnail">
     <img data-sketch-target="snapImg" data-action="click->sketch#like" alt="thumbnail!">
