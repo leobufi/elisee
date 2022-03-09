@@ -19,13 +19,33 @@
   display: none;
   font-size: 40px;
   position: absolute;
-  top: 40%;
-  left: 40%;
-  color: #E7AFCC;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #709ddb;
   transition: visibility 1s, opacity 1s;
 
 
   &.active {
     display: inline-block;
   }
+}
+
+.like-snap-thumbnail{
+  display: none;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  width: 300px;
+  height: 180px;
+  z-index: 99999;
+
+  &.show{
+    display: block;
+  }
+}
+
+.like-snap-thumbnail img {
+  width: 300px;
+  height: 180px;
 }
