@@ -3,9 +3,11 @@
          data-controller="navbar"
          data-navbar-target="menu">
       <div class="logo">
-        <%=link_to root_path do %>
-        <h1 style=" <%= 'display: none' if params[:action] == 'home' %> ">élisée </h1>
-        <% end %>
+      <% unless action_name == 'home' %>
+          <%=link_to root_path do %>
+            <h1>élisée </h1>
+          <% end %>
+      <% end %>
       </div>
       <div class="toggle">
         <span class="ouv"><i data-action="click->navbar#toggle" class="fa fa-bars"></i></span>
