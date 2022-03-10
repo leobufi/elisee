@@ -44,8 +44,8 @@
       data-controller="typed-js"
       data-typed-js-key-mode-value="Key: <%= Song::KEYS[@song.key] %> <%= Song::MODES[@song.mode]%>"
       data-typed-js-tempo-value="BPM: <%= @song.tempo.floor %>"
-      data-typed-js-danceability-level-value="Danceability: <%= @song.danceability_level %>"
-      data-typed-js-energy-level-value="Energy level: <%= @song.energy_level %>">
+      data-typed-js-danceability-level-value="<%= @song.danceability_level %> danceable"
+      data-typed-js-energy-level-value="<%= @song.energy_level %> level of energy">
     </span>
   </div>
   <div data-action="click->sketch#like" data-sketch-target="likeFlash" class="like-flash">Snap saved to your collection !</div>

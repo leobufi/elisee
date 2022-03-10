@@ -12,7 +12,7 @@ export default class extends Controller {
   }
   connect() {
     new Typed(this.element, {
-      strings: ["", `${this.keyModeValue}^1000\n${this.tempoValue}^1000\n${this.danceabilityLevelValue}^1000\n ${this.energyLevelValue}`],
+      strings: ["", `${this.keyModeValue}^1000\n${this.tempoValue}^1000\n${this.danceabilityLevelValue}^1000\n${this.energyLevelValue}`],
       typeSpeed: 50,
       loop: false,
       backSpeed: 0,
