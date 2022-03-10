@@ -1,14 +1,31 @@
-<div class="main-container d-flex align-items-center justify-content-center">
-  <div class="search-bar col-6 ">
-    <div class='papa-search' data-controller="autocomplete" data-autocomplete-url-value="/songs_autocomplete">
-        <%= form_tag '/song', :style => 'd-flex', method: :get do %>
-          <input type="text" id="search-bar" data-autocomplete-target="input" placeholder="Type your favorite song..." class="w-100"/>
-          <input type="hidden" name="id" data-autocomplete-target="hidden"/>
-          <%# <%=button_tag class: "btn", name: nil do %>
-            <%# <i class="fa-solid fa-play"></i> %>
-        <%# <% end %>
-    <% end %>
-      <ul class="list-group" data-autocomplete-target="results"></ul>
+<div class="background">
+  <div class="layer-1">
+  </div>
+  <div class="layer-2">
+    <div class="sub-layer-1"></div>
+    <div class="sub-layer-2"></div>
+    <div class="sub-layer-3"></div>
+  </div>
+  <div class="layer-3">
+  </div>
+</div>
+<div class="main-container align-items-center justify-content-center">
+  <div class="wrapper">
+    <div class="logo-baseline text-center pb-5">
+      <h1>élisée</h1>
+      <p>Visualize your favorite songs in colors and shapes</p>
+    </div>
+    <div class="search-bar">
+      <div class='papa-search' data-controller="autocomplete" data-autocomplete-url-value="/songs_autocomplete">
+          <%= form_tag '/song', :style => 'd-flex', method: :get do %>
+            <input type="text" id="search-bar" data-autocomplete-target="input" placeholder="Type your favorite song..." class="w-100"/>
+            <input type="hidden" name="id" data-autocomplete-target="hidden"/>
+            <%# <%=button_tag class: "btn", name: nil do %>
+              <%# <i class="fa-solid fa-play"></i> %>
+          <%# <% end %>
+      <% end %>
+        <ul class="list-group" data-autocomplete-target="results"></ul>
+      </div>
     </div>
   </div>
 </div>

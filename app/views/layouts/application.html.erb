@@ -20,7 +20,7 @@
     <%= yield :head if content_for?(:head) %>
   </head>
 
-  <body>
+  <body style=" <%= 'background-color: black' if params[:action] != 'home' %>">
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
     <%= yield %>

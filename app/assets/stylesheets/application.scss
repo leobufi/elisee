@@ -24,7 +24,6 @@ html{
 }
 
 body{
-  background-color: black;
   width: 100vw;
   overflow-x: hidden;
   font-family: 'VG5000';
@@ -59,7 +58,7 @@ body{
 //DEVISE FORMS ↑
 
 h1 {
-  font-size: 55px;
+  font-size: 50px;
 }
 
 a {
@@ -68,7 +67,7 @@ a {
 }
 
 a:hover {
-  color: #E7AFCC;
+  color: #E05740;
 }
 
 ol, ul {
@@ -76,6 +75,10 @@ ol, ul {
 }
 
 li.active {
-  background-color: #E7AFCC !important;
+  background-color: transparent !important;
   border: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
