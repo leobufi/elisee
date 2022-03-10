@@ -97,7 +97,7 @@ export default class extends Controller {
       this.likeFormTarget.classList.add("active");
       this.snapshotTarget.classList.add("show");
       this.snapImgTarget.src = data.image_url;
-      this._saveCanvasImageUrl();
+      this._saveCanvasImageUrl()
       this.screenshot = true;
       setTimeout(() => {
         this.screenshot = false;

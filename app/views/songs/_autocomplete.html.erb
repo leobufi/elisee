@@ -1,5 +1,5 @@
 <% search_results.each_with_index do |result, i| %>
-  <%= link_to song_path(result) do %>
+  <%= link_to "song?id=#{result.id}", data: { turbolinks: false } do %>
     <li class="list-group-item" role="option" data-autocomplete-value="<%= result.id %>">
       <strong><%= result.artist%></strong> - <%= result.name %> - <%= result.album %>
     </li>
