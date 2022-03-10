@@ -252,7 +252,7 @@ export default class extends Controller {
               position[1],
               position[2]
             ),
-            rotateY(frameCount * this.tempoValue/7500);
+            rotateY(frameCount * -this.tempoValue/7500);
             fill(c);
             box(this.energyValue*150, this.energyValue*150, 100-(Math.floor(this.acousticnessValue*100)));
           pop();
@@ -265,7 +265,7 @@ export default class extends Controller {
               position[1],
               position[2]
             ),
-            rotateY(frameCount * this.tempoValue/7500);
+            rotateY(frameCount * -this.tempoValue/7500);
             fill(c);
             square(this.energyValue*150, this.energyValue*150, 100-(Math.floor(this.acousticnessValue*100)));
           pop();
@@ -278,7 +278,7 @@ export default class extends Controller {
               position[1],
               position[2]
             ),
-            rotateY(frameCount * this.tempoValue/7500);
+            rotateY(frameCount * -this.tempoValue/7500);
             fill(c);
             plane(this.energyValue*150, this.energyValue*150, 100-(Math.floor(this.acousticnessValue*100)));
           pop();

@@ -1,4 +1,8 @@
-<div class="background">
+<% content_for :head do %>
+  <meta name="turbolinks-visit-control" content="reload">
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js" async defer></script>
+<% end %>
+<%# <div class="background">
   <div class="layer-1">
   </div>
   <div class="layer-2">
@@ -8,8 +12,8 @@
   </div>
   <div class="layer-3">
   </div>
-</div>
-<div class="main-container align-items-center justify-content-center">
+</div> %>
+<div class="main-container align-items-center justify-content-center" data-controller='home' data-home-font-value='<%= asset_path('VG5000-Regular_web.otf') %>'>
   <div class="wrapper">
     <div class="logo-baseline text-center pb-5">
       <h1>élisée</h1>
