@@ -23,7 +23,7 @@
       <h4 class= text-center>Artist: <%= @song.artist %></h4>
       <h4 class= text-center>Album: <%= @song.album %></h4>
     </div>
-    <div class="player px-4">
+    <div data-controller="player" data-player-target="play" data-action="load@window->player#autoClick" class="player px-4">
       <iframe src="https://open.spotify.com/embed/track/<%=@song.spotify_id%>" width="80" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
     </div>
     <div class="like-btn px-4">

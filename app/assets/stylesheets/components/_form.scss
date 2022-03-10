@@ -1,0 +1,25 @@
+.form-head{
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.form-render{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: underline;
+}
+
+.form-body{
+  display: flex;
+  justify-content: center;
+}
