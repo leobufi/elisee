@@ -185,9 +185,9 @@ export default class extends Controller {
       //     NBRE DE CÔTÉS = PLUS LA MUSIQUE EST ACOUSTIQUE, MOINS L'OBJET A DE COTÉS.
 
       push()
-        rotateX(frameCount * this.tempoValue/5000);
-        rotateY(frameCount * this.tempoValue/5000);
-        rotateZ(frameCount * this.tempoValue/5000);
+        rotateX(frameCount * this.tempoValue/6250);
+        rotateY(frameCount * this.tempoValue/6250);
+        rotateZ(frameCount * this.tempoValue/6250);
         noStroke();
         fill(c);
         torus((this.energyValue*1000), parseInt((this.instrumentalnessValue)*100), 100-(Math.floor(this.acousticnessValue*100)));
@@ -203,9 +203,9 @@ export default class extends Controller {
               position[1],
               position[2]
             ),
-            rotateX(frameCount * this.tempoValue/5000);
-            rotateY(frameCount * this.tempoValue/5000);
-            rotateZ(frameCount * this.tempoValue/5000);
+            rotateX(frameCount * this.tempoValue/6250);
+            rotateY(frameCount * this.tempoValue/6250);
+            rotateZ(frameCount * this.tempoValue/6250);
             fill(c);
             ellipsoid((this.instrumentalnessValue)*150, this.valenceValue*100, this.timeSignatureValue*10);
           pop();
@@ -218,9 +218,9 @@ export default class extends Controller {
               position[1],
               position[2]
             ),
-            rotateX(frameCount * this.tempoValue/5000);
-            rotateY(frameCount * this.tempoValue/5000);
-            rotateZ(frameCount * this.tempoValue/5000);
+            rotateX(frameCount * this.tempoValue/6250);
+            rotateY(frameCount * this.tempoValue/6250);
+            rotateZ(frameCount * this.tempoValue/6250);
             fill(c);
             cylinder(this.instrumentalnessValue*100, this.valenceValue*100, this.timeSignatureValue);
           pop();
@@ -233,9 +233,9 @@ export default class extends Controller {
               position[1],
               position[2]
             ),
-            rotateX(frameCount * this.tempoValue/5000);
-            rotateY(frameCount * this.tempoValue/5000);
-            rotateZ(frameCount * this.tempoValue/5000);
+            rotateX(frameCount * this.tempoValue/6250);
+            rotateY(frameCount * this.tempoValue/6250);
+            rotateZ(frameCount * this.tempoValue/6250);
             fill(c);
             box(this.instrumentalnessValue*150, this.valenceValue*100, this.timeSignatureValue*10);
           pop();
@@ -252,7 +252,7 @@ export default class extends Controller {
               position[1],
               position[2]
             ),
-            rotateY(frameCount * -this.tempoValue/5000);
+            rotateY(frameCount * -this.tempoValue/6250);
             fill(c);
             box(this.energyValue*150, this.energyValue*150, 100-(Math.floor(this.acousticnessValue*100)));
           pop();
@@ -265,7 +265,7 @@ export default class extends Controller {
               position[1],
               position[2]
             ),
-            rotateY(frameCount * -this.tempoValue/5000);
+            rotateY(frameCount * -this.tempoValue/6250);
             fill(c);
             square(this.energyValue*150, this.energyValue*150, 100-(Math.floor(this.acousticnessValue*100)));
           pop();
@@ -278,7 +278,7 @@ export default class extends Controller {
               position[1],
               position[2]
             ),
-            rotateY(frameCount * -this.tempoValue/5000);
+            rotateY(frameCount * -this.tempoValue/6250);
             fill(c);
             plane(this.energyValue*150, this.energyValue*150, 100-(Math.floor(this.acousticnessValue*100)));
           pop();
@@ -290,7 +290,7 @@ export default class extends Controller {
       if (!retrievedUrl) {
       setTimeout(() => {
         this._saveCanvasImageUrl()
-      }, 5000);
+      }, 6250);
       retrievedUrl = true
       }
       // this.canvas.elt.toDataURL())

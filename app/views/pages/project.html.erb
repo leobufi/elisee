@@ -3,10 +3,9 @@
   <p>
     élisée is an experimental visual project led by Benjamin Salloum,
     Oladélé Houéssou and Léo Bufi, started during their bootcamp at Le Wagon.
-    It's a web program that attempts to visually
-    and sensibly represent music.
+    It's a web program that attempts to visually and sensibly represent music.
     Thanks to a <em><a href="https://developer.spotify.com/documentation/web-api/reference/#/">Spotify API</a></em>
-    , it collect datas about track's rythm, key, energy and others musical
+    , it collect data about track's rythm, key, energy and others musical
     specificities, and translate them into shapes and colors
     using <em><a href="https://p5js.org/">P5.js</a></em>, a JavaScript library made by <em><a href="https://processingfoundation.org/">the Processing Foundation</a></em>.
   </p>
@@ -146,8 +145,8 @@
             // THE MAIN SHAPE REPRESENT THE GLOBAL CHARACTERISTICS OF THE TRACK:
             // - ROTATION = 100 FRAMECOUNT PER SECOND(DEFINE IN FRAMERATE) * TEMPO VALUE (BPM) / 10000;
             // - SHAPE = TORUS
-            //     SIZE = ENERGY > THE MORE THE MUSIC IS ENERGIC, THE MORE THE OBJECT IS BIG.
-            //     LENGHT = INSTRUMENTATION > THE MORE THE MUSIC IS INSTRUMENTAL, THE MORE THE OBJECT IS LARGE.
+            //     SIZE = ENERGY > THE MORE THE MUSIC IS ENERGIC, BIGGER IS THE OBJECT.
+            //     LENGHT = INSTRUMENTATION > THE MORE THE MUSIC IS INSTRUMENTAL, LARGER IS THE OBJECT.
             //     NUMBER OF SIDES = THE MORE THE MUSIC IS ACOUSTIC, THE LESS THE OBJECT HAS SIDES.
             // - COLOR = THE SHAPE IS FILL WITH THE C COLOR DEFINED ABOVE.
 
@@ -162,7 +161,7 @@
 
             //2.DANCERS
             //  WE DEFINE 3 GROUPS OF DANCERS, DEPENDING ON THE DANCEABILITY VALUE OF THE TRACK.
-            //  THE MORE THE TRACK IS DANCEABLE, THE MORE THERE IS DANCERS ON THE SCREEN. IN EACH GROUPS,
+            //  THE MORE THE TRACK IS DANCEABLE, THE MORE THERE IS DANCERS ON THE CANVA. IN EACH GROUPS,
             //  DANCERS HAVE THE SAME SHAPE, DEPENDING ON THE INSTRUMENTALNESS, THE HAPINESS AND
             //  THE TIME SIGNATURE OF THE TRACK. THEY ALSO HAVE THE SAME ROTATION AND RANDOM POSITIONS ON THE CANVA.
 
