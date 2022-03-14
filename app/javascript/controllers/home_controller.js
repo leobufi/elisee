@@ -81,36 +81,35 @@ export default class extends Controller {
     window.draw = () => {
 
 
-      background(this.c);
-      stroke(this.e);
+      background(0);
 
       // directionalLight(0, 0, 100, -window.innerWidth/2, -window.innerHeight/2, -10);
       // directionalLight(0, 0, 100, window.innerWidth/2, -window.innerHeight/2, -10);
       // directionalLight(0, 0, 100, -window.innerWidth/2, window.innerHeight/2, 0);
       // directionalLight(0, 0, 100, window.innerWidth/2, window.innerHeight/2, 0);
 
-      push();
-        translate(-window.innerWidth/2.75, -window.innerHeight/3.25, 10),
-        rotateY(frameCount * -0.01);
-        texture(this.elisee);
-        sphere(100, 24, 16);
-      pop();
+      // push();
+      //   translate(-window.innerWidth/2.75, -window.innerHeight/3.25, 10),
+      //   rotateY(frameCount * -0.01);
+      //   texture(this.elisee);
+      //   sphere(100, 24, 16);
+      // pop();
 
 
-      // this.spheresPositions.forEach(position => {
-      //   push();
-      //     translate(
-      //       position[0],
-      //       position[1],
-      //       position[2]
-      //     ),
-      //     rotateY(frameCount * -0.01);
+      this.spheresPositions.forEach(position => {
+        push();
+          stroke(this.e);
+          translate(
+            position[0],
+            position[1],
+            position[2]
+          ),
+          rotateY(frameCount * -0.01);
 
-      //     texture(this.elisee);
-      //     sphere(100, 24, 16);
-      //     line()
-      //   pop();
-      // })
+          texture(this.elisee);
+          sphere(100, 24, 16);
+        pop();
+      })
     }
   }
 
